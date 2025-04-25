@@ -1,0 +1,25 @@
+.alertbox {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 20rem;
+    padding: 10px;
+    background-color: #ffffff;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-radius: 5px;
+    color: white;
+    font-size: 17px;
+    font-family: "Barwol",'sans-serif';
+}
+.alertmessage{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.cross{
+    font-family: sans-serif;
+    font-size: 20px;
+    padding-right: 10px;
+    cursor: pointer;
+}

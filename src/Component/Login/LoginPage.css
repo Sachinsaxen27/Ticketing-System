@@ -1,0 +1,70 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+.loginStartingdiv {
+    display: flex;
+    justify-content: space-between;
+    background-color: #ffffff;
+}
+
+.divheadingtag {
+    display: flex;
+    align-items: center;
+    height: fit-content;
+    color: #184E7F;
+    margin-top: 10px;
+    margin-left: 50px;
+}
+
+.fomrinputtag {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.fomrinputtag label {
+    color: #666666;
+}
+
+.fomrinputtag input {
+    border: 1px solid #666666;
+    border-radius: 10px;
+    height: 40px;
+    width: 588px;
+    padding-left: 10px;
+}
+
+.loginbutton {
+    width: 500px;
+    margin-left: 43px;
+    padding: 10px;
+    border-radius: 25px;
+    background-color: #C3C3C3;
+    border: none;
+    color: #ffffff;
+    margin-top: 40px;
+    cursor: pointer;
+}
+
+.divforgatsignup {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.formdiv {
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+    flex-direction: column;
+}
+.formdiv h1{
+    margin-bottom: 60px;
+}
+.insideform{
+    margin-top: 3.5rem;
+}
+a{
+    color: #4831D4;
+}

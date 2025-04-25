@@ -1,0 +1,65 @@
+import React, { useContext, useEffect, useState } from 'react'
+import './CreateMemberForm.css'
+import TicketSystemAPI from '../../../../../ContextAPI/TicketsystemApi'
+function CreateMemberForm(props) {
+    const context=useContext(TicketSystemAPI)
+    const {Admininfo,Memberinfo}=context
+    const [credintial, setMycredintial] = useState({ name: "", email: "" })
+    const [designation, setMydesignation] = useState("Member")
+    const handlesubmit = async (e) => {
+        e.preventDefault()
+        const response = await fetch('http://localhost:5000/api/memberlogin/add_member', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'id':Admininfo._id
+            },
+            body: JSON.stringify({ name: credintial.name,email: credintial.email, })
+        });
+        const json = await response.json()
+        if (json.success) {
+            console.log("Account Create Successfully", "success")
+            setMycredintial({ name: "", email: ""})
+            setMydesignation('Member')
+        }else{
+            console.log(json.message)
+        }
+    }
+    const handlechange=(e)=>{
+        setMycredintial({...credintial,[e.target.name]:e.target.value})
+    }
+    console.log(Memberinfo)
+    return (
+        <>
+            <div className='createmembers' ref={props.formpop}>
+                <div>
+                    <h2>Add Team members</h2>
+                    <p className='creatememberpara'>Talk with colleagues in a group chat. Messages in this group are only visible to it's participants. New <br /> teammates may only be invited by the administrators.</p>
+                </div>
+                <form style={{ margin: "0px" }}>
+                    <div className='formfield'>
+                        <label htmlFor="name">User name</label>
+                        <input type="text" name="name" id="username" value={credintial.name} placeholder='User name' onChange={handlechange}/>
+                    </div>
+                    <div className='formfield'>
+                        <label htmlFor="email">Email ID</label>
+                        <input type="email" name="email" id="useremail" placeholder='Email ID' value={credintial.email} onChange={handlechange}/>
+                    </div>
+                    <div className='formfield'>
+                        <label htmlFor="userDesignation">Designation</label>
+                        <select value={designation} onChange={(e) => setMydesignation(e.target.value)}>
+                            <option value="Member">Member</option>
+                            <option value="Admin">Admin</option>
+                        </select>
+                    </div>
+                </form>
+                <div className='buttondiv'>
+                    <button className='buttonCancelaction' onClick={props.closeform}>Cancel</button>
+                    <button className='buttonSaveaction' onClick={handlesubmit}>Save</button>
+                </div>
+            </div>
+        </>
+    )
+}
+
+export default CreateMemberForm

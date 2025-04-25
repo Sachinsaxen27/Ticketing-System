@@ -1,0 +1,72 @@
+.Teamsheading {
+    font-family: "Barlow", sans-serif;
+    margin-top: 20px;
+    margin-left: 30px;
+    color: #6A6B70;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.member_div {
+    margin-top: 40px;
+    width: calc(100vw - 6.3rem);
+}
+
+.memebertable {
+    width: -webkit-fill-available;
+    border-collapse: collapse;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.thead-th {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    width: 150px;
+    text-align: justify;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: #184E7F;
+    font-weight: 500;
+}
+
+.memberuserprofile {
+    text-align: center;
+}
+
+tbody td {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e1e1e1;
+}
+
+.editicons {
+    text-align: end;
+    padding-right: 15px;
+}
+
+.editicons img {
+    margin-left: 15px;
+}
+
+.buttondiv {
+    display: flex;
+    justify-content: flex-end;
+    border: none;
+    margin: 10px;
+}
+
+.buttonaddmember {
+    font-family: "barwol","Inter";
+    cursor: pointer;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    background-color: #184E7F;
+    border: none;
+    border-radius: 5px;
+    color: white;
+}
+.buttonaddmember img{
+    margin-right: 10px;
+}

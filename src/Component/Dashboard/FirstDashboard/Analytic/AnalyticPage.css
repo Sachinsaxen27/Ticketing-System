@@ -1,0 +1,19 @@
+.missedchat{
+    margin-left: 30px;
+    font-weight: 500;
+    color: #00D907;
+    margin-bottom: 10px;
+}
+.Average_Chat_div{
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    margin-left: 30px;
+}
+.Average_timer_div{
+    margin-left: 20px;
+    font-size: 25px;
+    color: #00D907;
+    font-weight: 500;
+}
+

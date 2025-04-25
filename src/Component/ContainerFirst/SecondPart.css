@@ -1,0 +1,16 @@
+.SecondPartcontainer {
+    background-color: #EBF1F9;
+    margin-top: 2rem;
+    padding: 10px;
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+}
+
+@media screen and (max-width:480px) {
+    .SecondPartcontainer{
+        display:none;
+    }
+    
+}

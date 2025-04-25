@@ -1,0 +1,93 @@
+.settingheading {
+    color: #6A6B70;
+    font-weight: 500;
+    margin-top: 1.2rem;
+    margin-left: 30px;
+    font-family: 'barwol', 'Inter';
+    font-size: 21px;
+    margin-bottom: 2.7rem;
+}
+
+.div {
+    width: calc(100vw - 6.4rem);
+    margin-top: 6rem;
+}
+
+.diveditprofile {
+    border-bottom: 1px solid #dddddd;
+    margin-left: 4rem;
+    margin-right: 3rem;
+}
+.diveditprofile div{
+    border-bottom: 3px solid #184E7F;
+    width: max-content;
+    color: #184E7F;
+    font-weight: 500;
+    font-family: "barwol", sans-serif;
+}
+
+form {
+    margin-left: 5rem;
+}
+
+.formfieldinput {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.formfieldinput label {
+    margin-bottom: 10px;
+}
+
+.formfieldinput input {
+    height: 2rem;
+    border-radius: 5px;
+    border: 1px solid #bebebe;
+    width: 21rem;
+    margin-right: 15px;
+    padding-left: 10px;
+    /* margin-top: 10px; */
+}
+
+.infodiv {
+    display: flex;
+    align-items: center;
+}
+
+.popup {
+    font-family: "Helvetica";
+    border: 1px solid #EEEEEE;
+    font-size: 11px;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px -2px;
+    color: #7C7C7C;
+    position: relative;
+    top: 19px;
+    right: 4px;
+    display: none;
+}
+
+.buttonSaveaction {
+    font-family: "barwol", "Inter";
+    cursor: pointer;
+    width: 10rem;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    background-color: #184E7F;
+    border: none;
+    border-radius: 5px;
+    color: #FAFBFC;
+    font-size: 15px;
+}
+
+.buttonsave {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 50px;
+}

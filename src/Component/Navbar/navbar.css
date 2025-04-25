@@ -1,0 +1,47 @@
+#navbarmaindiv{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+#image1{
+    height: 50px;
+}
+.divlogo1{
+    display: flex;
+    align-items: center;
+    margin-left: 70px;
+}
+.headingname{
+    margin: 0px;
+    padding: 0px;
+    margin-left: 10px;
+    color: #184E7F;
+}
+.divloginsignupbutton{
+    display: flex;
+    align-items: center;
+    margin-right: 70px;
+}
+.buttonlogin{
+    padding: 10px;
+    border: none;
+    background-color: transparent; 
+    font-size: 15px;
+    cursor: pointer;
+}
+.buttonsignup{
+    font-size: 15px;
+    cursor: pointer;
+    background-color: #244779;
+    color: white;
+    padding: 8px;
+    border: none;
+    border-radius: 6px;
+}
+
+@media screen and (max-width:480px) {
+    #navbarmaindiv{
+        display:none;
+    }
+    
+}

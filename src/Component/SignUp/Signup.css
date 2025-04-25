@@ -1,0 +1,25 @@
+.accountheading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+.accountheading h1{
+    margin: 0px;
+}
+.fomrinputtag input{
+    width: 35rem;
+}
+.loginbutton{
+    width: 31rem;
+    margin-left: 30px;
+    margin-top: 0px;
+}
+.checkboxdiv{
+    flex-direction: row;
+    align-items: center;
+}
+.checkboxdiv input{
+    width: 15px;
+    margin-right: 10px;
+}

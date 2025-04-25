@@ -1,0 +1,75 @@
+.createmembers{
+    box-shadow: 0px 0px 17px -6px;
+    margin: auto;
+    padding: 15px;
+    border-radius: 20px;
+    font-family: 'barwol ',"Inter";
+    position: absolute;
+    top: 8rem;
+    left: 26rem;
+    background-color: #FFFFFF;
+}
+h2{
+    font-size: 25px;
+    font-weight: 400;
+}
+.creatememberpara{
+    margin-top: 15px;
+    font-size: 13px;
+    padding-right: 40px;
+    margin-bottom: 15px;
+    line-height: 20px;
+}
+.formfield{
+    display: flex;
+    flex-direction: column;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.formfield input{
+    height: 2rem;
+    border: 1px solid #D1D6DA;
+    border-radius: 10px;
+    padding-left: 10px;
+}
+.formfield select{
+    height: 2rem;
+    border: 1px solid #D1D6DA;
+    padding-left: 10px;
+    border-radius: 10px;   
+}
+.buttondiv{
+    display: flex;
+    margin-top: 20px;
+}
+.buttonSaveaction{
+    font-family: "barwol","Inter";
+    cursor: pointer;
+    width: 10rem;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    background-color: #184E7F;
+    border: none;
+    border-radius: 5px;
+    color: #FAFBFC;
+    font-size: 15px;
+}
+.buttonCancelaction{
+    font-family: "barwol","Inter";
+    cursor: pointer;
+    width: 10rem;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    background-color: #EEEEEE;
+    border: none;
+    border-radius: 5px;
+    color: #AFAFAF;
+    font-size: 15px;
+    margin-right: 10px;
+}

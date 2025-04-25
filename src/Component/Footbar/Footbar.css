@@ -1,0 +1,63 @@
+.footbardiv {
+    background-color: #fff;
+    display: flex;
+    justify-content: space-around;
+    padding-top: 6rem;
+}
+
+.detailsblock {
+    /* border: 1px solid black; */
+    display: flex;
+}
+
+.divdetials {
+    /* border: 1px solid black; */
+    /* width: 100px; */
+    width: 20rem;
+
+}
+
+.divdetials h5 {
+    margin: 0px;
+    padding: 0px;
+    color: #1B1A1A;
+    font-size: 18px;
+}
+
+.divdetials div {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: #1B1A1A;
+}
+
+.seconddetailslist {
+    display: flex;
+    justify-content: center;
+}
+
+.imageoption {
+    display: flex;
+    align-items: end;
+    position: relative;
+    left: 16.6rem;
+    bottom: 10px;
+}
+
+.imageoption img {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+.divdetials2{
+    position: relative;
+    left: 4.5rem;
+}
+
+@media screen and (max-width:480px) {
+    .footbardiv{
+        display:none;
+    }
+    .seconddetailslist{
+        display: none;
+    }
+    
+}

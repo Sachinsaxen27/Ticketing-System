@@ -1,0 +1,239 @@
+.contactcenterdiv {
+    max-width: 24rem;
+    min-width: 20rem;
+    width: 100%;
+    border-right: 1px solid #D1D6DA;
+}
+
+.contactheading {
+    font-family: "Barlow", sans-serif;
+    margin-top: 20px;
+    margin-left: 30px;
+    color: #6A6B70;
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.contactcenterlist {
+    margin-top: 5rem;
+    padding-left: 22px;
+    color: #888888;
+    font-weight: 400;
+}
+
+.chats {
+    color: #888888;
+    font-weight: 600;
+    border-bottom: 1px solid #D7D8D8;
+    margin-bottom: 20px;
+}
+
+.chatlist {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: #EFEFEF;
+    border-radius: 20px;
+    margin-right: 10px;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    cursor: pointer;
+}
+
+.userimage {
+    width: 40px;
+    /* margin-left: 10; */
+    margin-right: 15px;
+}
+
+.userdetails {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.userdetails h3 {
+    margin-bottom: 5px;
+    color: #5E9BD5;
+}
+
+.messagearea {
+    background-color: transparent;
+}
+
+.chatarea {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: space-between;
+}
+
+.divchatarea {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.divchatheader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #E4E4E4;
+}
+
+.divchatheader h3 {
+    color: #86898C;
+}
+
+.detailsdiv {
+    border-left: 1px solid #D1D6DA;
+    width: 30rem;
+}
+
+.chatlogo {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+    margin-left: 15px;
+    color: #939598;
+    font-weight: 400;
+}
+
+.chatlogo img {
+    margin-right: 10px;
+}
+
+.detailsh3 {
+    color: #184E7F;
+    font-size: 14px;
+    font-family: "Inter";
+    margin-left: 15px;
+    margin-bottom: 15px;
+}
+
+.userdetailsright {
+    display: flex;
+    align-items: center;
+    border: 1px solid #D1D6DA;
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    padding: 3px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    margin-left: 5px;
+    color: #808080;
+    justify-content: space-between;
+}
+
+.userdetailsright div {
+    display: flex;
+    align-items: center;
+}
+
+.userdetailsright img {
+    margin-right: 30px;
+    margin-left: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.ticketstatus {
+    border: 1px solid #D1D6DA;
+    padding: 5px;
+    margin-left: 5px;
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+    cursor: pointer;
+}
+
+#mess {
+    margin-bottom: -3px;
+    resize: none;
+    border-radius: 10px;
+    border: 1px solid #EEEEEE;
+    padding-top: 10px;
+    padding-left: 10px;
+}
+
+#mess::placeholder {
+    padding-top: 10px;
+    padding-left: 10px;
+}
+
+.sendcircle {
+    position: absolute;
+    right: 28.5rem;
+    bottom: 16px;
+}
+
+.assignpopup {
+    box-shadow: 0px 0px 4px 0px;
+    border: none;
+    border-radius: 25px;
+    display: flex;
+    position: fixed;
+    bottom: 18rem;
+    right: 1rem;
+    background-color: #FFFFFF;
+    padding: 10px;
+    width: 25rem;
+    height: 7rem;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.assignpopupbuttondiv {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.assignpopbuttoncancel {
+    padding: 10px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 5px;
+    width: 9rem;
+    cursor: pointer;
+}
+
+.assignpopbuttonconfirm {
+    cursor: pointer;
+    padding: 10px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 5px;
+    width: 9rem;
+    background-color: #184E7F;
+    color: #FFFFFF;
+}
+
+.chat-container {
+    background-color: transparent;
+}
+
+.chat-message.user {
+    background-color: #FFFFFF;
+    align-self: flex-start;
+    display: flex;
+    align-items: center;
+}
+
+.chat-message.admin {
+    background-color: #FFFFFF;
+    align-self: flex-end;
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+}
+
+.chat-message.admin img {
+    margin-left: 10px;
+    margin-right: 0px;
+}

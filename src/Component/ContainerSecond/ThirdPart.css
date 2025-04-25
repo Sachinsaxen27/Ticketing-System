@@ -1,0 +1,126 @@
+.thirdpartcontainer{
+    margin: auto;
+    margin-top: 8rem;
+}
+.headincontainer{
+    text-align: center;
+    color: #30404D;
+    font-family: "Barlow", sans-serif;
+    font-size: 22px;
+}
+.headincontainer p{
+    font-size: 16px;
+}
+.thirdparsecondcontainer{
+    border: 1px solid #6FA4D7;
+    border-radius: 20px;
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 60px;
+    margin-right: 60px;
+    margin-top: 40px;
+}
+.iconimage{
+    border-radius: 50px;
+    margin-left: 6rem;
+    background: linear-gradient(to top, #ffffff, #e6f0fa);
+}
+.divblockreactangle{
+    display: flex;
+    align-items:center;
+}
+.reactangleblock{
+    margin-right: 60px;
+}
+.vectorline{
+    position: relative;
+    left: 30px;
+}
+.divblockcontent{
+    display: flex
+;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 50px;
+}
+.headingblock{
+    margin: auto;
+    font-size: 25px;
+    color: #30404D;
+}
+.contentpara{
+    color: #394B59;
+    font-weight: 200;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.fourtpartcontainer{
+    display: flex;
+    justify-content: center;
+}
+.card{
+    border: 2px solid #e2e8f0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    border-radius: 20px;
+    background-color: #ffff;
+    padding: 30px;
+    color: #30404D;
+    font-family: "Barlow", sans-serif;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.priceh1{
+    margin: 0px;
+    padding: 0px;
+    color: #3A7ABD;
+    font-size:40px ;
+}
+.pricecontainer{
+    display: flex;
+    align-items: baseline;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.pricecontainer p{
+    /* 98A8B3 */
+    color: #98A8B3;
+    padding: 0px;
+    margin: 0px;
+}
+.listcontainer{
+    margin-top: 20px;
+}
+.listcontainer h6{
+    margin: 0px;
+    padding: 0px;
+    margin-bottom: 20px;
+    font-size: 15px;
+}
+.list{
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.list img{
+    margin-right: 10px;
+}
+.buttonsignupforstarter{
+    background: none;
+    border-radius: 25px;
+    padding: 15px;
+    width: -webkit-fill-available;
+    color: #244779;
+    border: 1px solid #244779;
+    margin-top: 5rem;
+}
+
+@media screen and (max-width:480px) {
+    .thirdpartcontainer{
+        display:none;
+    }
+    
+}
