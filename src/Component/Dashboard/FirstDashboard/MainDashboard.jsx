@@ -19,31 +19,56 @@ import TeamsPage from './Teams Member/TeamsPage'
 import SettingsPage from './Settings/SettingsPage'
 import { useNavigate } from 'react-router-dom'
 import TicketSystemAPI from '../../../ContextAPI/TicketsystemApi'
+import { ToastContainer } from 'react-toastify/unstyled'
+import { toast } from 'react-toastify'
+
 function MainDashbaord() {
+    const currenttime = new Date()
     const [showoption, setMyshowoption] = useState("Dashboard")
     const [chats, setMyChats] = useState([])
-    const [Alluser, setMyAllUser] = useState()
     const navigate = useNavigate()
     const context = useContext(TicketSystemAPI)
     const { Admininfo, Memberinfo } = context
-    const Admin = (Admininfo && Object.keys(Admininfo).length > 0) ? Admininfo : Memberinfo;
-    const GetConversation = async (e) => {
-        const response = await fetch(`http://localhost:5000/api/messagebox/get_messages/${Admin._id}`, {
+    const Admin = (Admininfo && Object.keys(Admininfo).length > 0) ? Admininfo : Memberinfo
+    const [chatNumber, setMyChatNumber] = useState();
+    const [OptionChoice, setMyOptionChoice] = useState()
+    const [SearchPara, setMySearchPata] = useState('')
+    const GetAllChats = async () => {
+        const response = await fetch(`http://localhost:5000/api/messagebox/All_conversation/${OptionChoice}`, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
             },
         })
         const json = await response.json()
-        console.log(json.messages)
         if (json) {
-            setMyChats(json.messages)
+            setMyChatNumber(json.user)
         }
     }
     useEffect(() => {
-        if (Admin.role === "Admin") {
-            GetConversation()
+        GetAllChats()
+    }, [OptionChoice])
+    const GetConversation = async (e) => {
+        if (Admin._id) {
+            const response = await fetch(`http://localhost:5000/api/messagebox/get_messages/${Admin._id}`, {
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            const json = await response.json()
+            if (json) {
+                const sortedMessages = json.messages.sort((a, b) => b._id.localeCompare(a._id));
+                setMyChats(sortedMessages)
+            }
         }
+    }
+    useEffect(() => {
+        if (!Admin?._id) {
+            return
+        }
+        console.log(Admin)
+        GetConversation()
     }, [Admin])
     const handlelogout = () => {
         if (localStorage.getItem('member-token')) {
@@ -73,39 +98,27 @@ function MainDashbaord() {
         }
         clearInterval()
     }
-    const handleALLChat = async () => {
-        const response = await fetch('http://localhost:5000/api/messagebox/all_message', {
-            method: 'GET',
+    const Searchbyticket = async (e) => {
+        const response = await fetch(`http://localhost:5000/api/messagebox/Search_Conversation/${SearchPara}`, {
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json'
-
-            },
+                'Content-Type': 'application/json',
+            }
         })
         const json = await response.json()
-        if (json) {
-            console.log(json.Allchat)
-            setMyChats(json.Allchat)
-            handleALuser()
+        if (json.success) {
+            setMyChats(json.message)
+        } else {
+            toast('No Ticket Found')
         }
     }
-    const handleALuser = async () => {
-        const response = await fetch('http://localhost:5000/api/userlogin/getAll_User', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-
-            },
-        })
-        const json = await response.json()
-        if (json) {
-            setMyAllUser(json.user)
+    useEffect(() => {
+        if (SearchPara.length >= 12) {
+            Searchbyticket()
+        } else if (SearchPara.length < 11) {
+            GetConversation()
         }
-    }
-    // useEffect(() => {
-    //     if (Admin.role === 'Admin') {
-    //         handleALLChat()
-    //     }
-    // }, [Admin])
+    }, [SearchPara])
     return (
         <>
             <div style={{ display: 'flex', backgroundColor: '#FFFFFF', fontFamily: "Barlow, sans-serif" }}>
@@ -143,35 +156,41 @@ function MainDashbaord() {
                         <p>Dashboard</p>
                     </div>
                     <div className='searchdiv'>
-                        <input type="search" name="serach" id="serach" placeholder='Search for ticket' />
+                        <input type="search" name="serach" id="serach" value={SearchPara} onChange={(e) => setMySearchPata(e.target.value)} placeholder='Search for ticket' />
                     </div>
                     <div>
                         <div className='dashboardoption'>
                             <div className='dashboardalltickets'>
                                 <img src={image8} alt="" />All tickets
                             </div>
-                            {Admin.role !== "Member" && <div className='dashboardresolved'>Resolved</div>}
-                            {Admin.role !== "Member" && <div className='dashboardunresolved'>Unresolved</div>}
+                            {Admin.role !== "Member" && <div className='dashboardresolved' onClick={() => setMyOptionChoice("resolved")}>Resolved</div>}
+                            {Admin.role !== "Member" && <div className='dashboardunresolved' onClick={() => setMyOptionChoice("unresolved")}>Unresolved</div>}
                         </div>
                     </div>
-                    {chats?.map((msg, index) => {
+                    {OptionChoice === undefined && chats?.map((msg, index) => {
+                        const timeString = msg.message.time
+                        const [datePart, timePart] = timeString.split(', ');
+                        const [day, month, year] = datePart.split('/');
+                        const formatted = `${month}/${day}/${year} ${timePart}`;
+                        const localDate = new Date(formatted);
+                        const diffHr = currenttime - localDate
                         return msg.role === 'user' ? <div className='messagebox' key={index}>
                             <div>
                                 <div className='messageheader'>
                                     <div className='messageticketnumber'>
                                         <img src={image9} alt="ellipse" />
-                                        Ticket #{new Date(msg.message.time).toLocaleDateString('en-IN', {
+                                        Ticket #{localDate.toLocaleDateString('en-IN', {
                                             timeZone: 'Asia/Kolkata',
                                             year: 'numeric'
                                         })}-0{
-                                            (new Date(msg.message.time).toLocaleDateString('en-US', {
+                                            (localDate.toLocaleDateString('en-US', {
                                                 month: '2-digit',
                                                 day: '2-digit',
-                                            })).split('/').join('')
+                                            })).split('/').join('') + timePart.slice(-5, -3)
                                         }
                                     </div>
                                     <div>
-                                        <p className='messageposttime'>Posted at {new Date(msg.message.time).toLocaleTimeString('en-IN', {
+                                        <p className='messageposttime'>Posted at {localDate.toLocaleTimeString('en-IN', {
                                             timeZone: 'Asia/Kolkata', // convert to IST
                                             hour: '2-digit',
                                             minute: '2-digit',
@@ -180,7 +199,7 @@ function MainDashbaord() {
                                 </div>
                                 <div className='messagecontent'>
                                     <div className='messageportion'>{msg.message.text}</div>
-                                    <div className='messagetimeinterval'>10:00</div>
+                                    <div className='messagetimeinterval'>{String(Math.floor(diffHr / (1000 * 60 * 60))).padStart(2, '0')}:{String(Math.floor((diffHr % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0')}</div>
                                 </div>
                             </div>
                             <hr className='horizontal' />
@@ -192,21 +211,64 @@ function MainDashbaord() {
                                         <p>{msg.senderid.phone}</p>
                                         <p>{msg.senderid.email}</p>
                                     </div>
-                                    {/* {Alluser?.map((user, index) => {
-                                        if (user._id === msg.senderid) {
-                                            return <div key={index} className='userdetails2'>
-                                                <h5>{user.name}</h5>
-                                                <p>{user.phone}</p>
-                                                <p>{user.email}</p>
-                                            </div>
-                                        }
-                                    })} */}
                                 </div>
                                 <div>
                                     Open Ticket
                                 </div>
                             </div>
                         </div> : ""
+                    })}
+                    {OptionChoice && chatNumber?.map((msg, index) => {
+                        const timeString = msg.message.time
+                        const [datePart, timePart] = timeString.split(', ');
+                        const [day, month, year] = datePart.split('/');
+                        const formatted = `${month}/${day}/${year} ${timePart}`;
+                        const localDate = new Date(formatted);
+                        const diffHr = currenttime - localDate
+                        return <div className='messagebox' key={index}>
+                            <div>
+                                <div className='messageheader'>
+                                    <div className='messageticketnumber'>
+                                        <img src={image9} alt="ellipse" />
+                                        Ticket #{localDate.toLocaleDateString('en-IN', {
+                                            timeZone: 'Asia/Kolkata',
+                                            year: 'numeric'
+                                        })}-0{
+                                            (localDate.toLocaleDateString('en-US', {
+                                                month: '2-digit',
+                                                day: '2-digit',
+                                            })).split('/').join('')
+                                        }
+                                    </div>
+                                    <div>
+                                        <p className='messageposttime'>Posted at {localDate.toLocaleTimeString('en-IN', {
+                                            timeZone: 'Asia/Kolkata',
+                                            hour: '2-digit',
+                                            minute: '2-digit',
+                                        })}</p>
+                                    </div>
+                                </div>
+                                <div className='messagecontent'>
+                                    <div className='messageportion'>{msg.message.text}</div>
+                                    <div className='messagetimeinterval'>{String(Math.floor(diffHr / (1000 * 60 * 60))).padStart(2, '0')}:{String(Math.floor((diffHr % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0')}</div>
+                                </div>
+                            </div>
+                            <hr className='horizontal' />
+                            <div className='messagefooter'>
+                                <div className='userdetails_1'>
+                                    <img src={image10} alt="people" className='dashboardmessageimg' />
+                                    <div key={index} className='userdetails2'>
+                                        <h5>{msg.senderid.name}</h5>
+                                        <p>{msg.senderid.phone}</p>
+                                        <p>{msg.senderid.email}</p>
+                                    </div>
+
+                                </div>
+                                <div>
+                                    Open Ticket
+                                </div>
+                            </div>
+                        </div>
                     })}
                 </div>}
                 {showoption === 'Contact' && <ContactCenter />}
@@ -215,6 +277,8 @@ function MainDashbaord() {
                 {showoption === 'Team' && <TeamsPage />}
                 {showoption === 'Setting' && <SettingsPage />}
             </div >
+            <ToastContainer
+            />
         </>
     )
 }

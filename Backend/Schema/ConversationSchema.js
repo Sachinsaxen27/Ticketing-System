@@ -9,11 +9,13 @@ const ConversationSchema = new Schema({
     participants: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref:"userlogin",
+            ref: "userlogin",
             required: true
         }
     ],
-    
+    status: String,
+    ticket: String
+
 })
 
 module.exports = mongoose.model('conversationSchema', ConversationSchema)

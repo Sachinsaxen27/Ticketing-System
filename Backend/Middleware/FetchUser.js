@@ -6,7 +6,6 @@ const fetchuser = async (req, res, next) => {
         return res.status(401).json({ error: "Incorrect information" })
     }
     try {
-        console.log(req.header('auth-token'))
         const datas = jwt.verify(token, jwt_Sign);
         // console.log(datas)
         req.user = datas.member.id

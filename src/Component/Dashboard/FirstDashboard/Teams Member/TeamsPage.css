@@ -47,6 +47,7 @@ tbody td {
 
 .editicons img {
     margin-left: 15px;
+    cursor: pointer;
 }
 
 .buttondiv {

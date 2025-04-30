@@ -12,19 +12,21 @@ import image9 from '../../../../Image/sendcircle.png'
 import TicketSystemAPI from '../../../../ContextAPI/TicketsystemApi'
 function ContactCenter() {
     const context = useContext(TicketSystemAPI)
-    const { Admininfo,Memberinfo} = context
+    const { Admininfo, Memberinfo } = context
     const [userList, setMyuserList] = useState([])
     const [OpenUser, setMyOpenuser] = useState()
     const [Memberlist, setMyMemberList] = useState([])
     const [Showpopup, setMyShowpopUp] = useState({ status: false, id: '' })
     const [messagefetch, setMyMessageFetch] = useState([])
     const [inputmessage, setMyInputMessage] = useState()
-    const [finalmessage,setMyfinalmessage]=useState()
-    const [logOff, setMyLogOff] = useState(false)
+    const [showresolved, setMyShowResolved] = useState({status:false,text:""})
+    const [logOff, setMyLogOff] = useState(true)
+    const [TicketNumber, setMyTicketNumber] = useState({ year: "", date: '' })
     let conversationID = ''
     const Admin = (Admininfo && Object.keys(Admininfo).length > 0) ? Admininfo : Memberinfo;
-    let model=(Admininfo && Object.keys(Admininfo).length > 0)?"adminlogin":'memberlogin'
-    let role=(Admininfo && Object.keys(Admininfo).length > 0)?"admin":'member'
+    let model = (Admininfo && Object.keys(Admininfo).length > 0) ? "adminlogin" : 'memberlogin'
+    let role = (Admininfo && Object.keys(Admininfo).length > 0) ? "admin" : 'member'
+    const [ChatStatus, setMyChatStatus] = useState('This chat is assigned to new team member. you no longer have access ')
     const optionlist = (value) => {
         let opt = document.getElementById(value)
         if (opt.style.display === 'none') {
@@ -35,7 +37,6 @@ function ContactCenter() {
         }
     }
     const FetchChatUser = async (e) => {
-        console.log(Admin)
         const response = await fetch('http://localhost:5000/api/adminlogin/allchats_Available_inAdmin', {
             method: 'GET',
             headers: {
@@ -44,11 +45,10 @@ function ContactCenter() {
             },
         })
         const json = await response.json()
-        console.log(json)
         if (json.success) {
             setMyuserList(json.user)
         }
-        else{
+        else {
             console.log(json)
         }
     }
@@ -72,12 +72,28 @@ function ContactCenter() {
             body: JSON.stringify({ adminId: val, userId: OpenUser._id })
         })
         const json = await response.json()
-        // console.log(json)
         if (json.success) {
             // console.log("success")
+            setMyChatStatus('This chat is assigned to new team member. you no longer have access')
             setMyShowpopUp({ status: false, id: '' })
             setMyMessageFetch([])
             setMyOpenuser()
+            setMyLogOff(false)
+        }
+    }
+    const StatusChange = async (val) => {
+        const response = await fetch(`http://localhost:5000/api/adminlogin/conversationstatus/${conversationID}`, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ status: val })
+        })
+        const json = await response.json()
+        if (json.success) {
+            setMyChatStatus('This chat has been resolved')
+            setMyShowResolved({status:false,text:''})
+            setMyLogOff(false)
         }
     }
     const GetConversation = async (e) => {
@@ -90,6 +106,7 @@ function ContactCenter() {
         const json = await response.json()
         // console.log(json)
         if (json) {
+            console.log(json)
             setMyMessageFetch(json.messages)
             // console.log(json.messages)
         }
@@ -110,7 +127,7 @@ function ContactCenter() {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ userId: OpenUser._id, adminId: Admin._id, senderid: Admin._id, senderModel: model, text: inputmessage, sender:role, role:role })
+            body: JSON.stringify({ userId: OpenUser._id, adminId: Admin._id, senderid: Admin._id, senderModel: model, text: inputmessage, sender: role, role: role })
         })
         const json = await response.json()
         if (json) {
@@ -119,6 +136,19 @@ function ContactCenter() {
             setMyInputMessage('')
         }
     }
+    useEffect(() => {
+        if (OpenUser) {
+            const timeString = new Date(OpenUser.time)
+            console.log(timeString)
+
+            setMyTicketNumber({
+                year: timeString.getFullYear(),
+                date: '0' + String(timeString.getMonth() + 1) + String(timeString.getDate())
+            })
+        }
+    }, [OpenUser])
+
+    const localdate = new Date()
     return (
         < >
             <div style={{ display: 'flex' }}>
@@ -133,46 +163,47 @@ function ContactCenter() {
                             </div>
                         </div   >
                         <div>
-                            {userList?userList.map((user, index) => {
+                            {userList ? userList.map((user, index) => {
                                 return <div className='chatlist' key={index} onClick={() => { setMyOpenuser(user) }}>
                                     <img src={image1} alt="user" className='userimage' />
                                     <div className='userdetails'>
                                         <h3>{user.name}</h3>
                                     </div>
                                 </div>
-                            }):""}
+                            }) : ""}
                         </div>
                     </div>
                 </div>
-                {OpenUser&& <div>
+                {OpenUser && <div>
                     <div className='chatarea'>
                         <div className='divchatheader'>
-                            <h3>Ticket# 2025-00123</h3>
+                            <h3>Ticket# {TicketNumber.year}-0{TicketNumber.date}</h3>
                             <img src={image3} alt="Home" />
                         </div>
                         <div className='divchatarea'>
                             <div>
-                                March 7,2025
+                                {localdate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: '2-digit' })}
                             </div>
                             <div>
                                 <div className="chat-container" style={{ maxHeight: '423px' }}>
-                                    {messagefetch? messagefetch.map((msg, index) => {
+                                    {messagefetch ? messagefetch.map((msg, index) => {
+
                                         conversationID = msg.conversationID
                                         return <div key={index} className={`chat-message ${msg.role === 'user' ? 'user' : 'admin'}`}>
                                             <img src={image1} alt="user" className='userimage' />
-                                            <div className='userdetails' style={{alignItems:msg.role==='user'?"flex-start":"flex-end"}} >
+                                            <div className='userdetails' style={{ alignItems: msg.role === 'user' ? "flex-start" : "flex-end" }} >
                                                 <h3>{msg.message.sender}</h3>
                                                 <p>{msg.message.text}</p>
 
                                             </div>
                                         </div>
-                                    }):""}
+                                    }) : ""}
                                 </div>
-                                {!logOff ? <div style={{ paddingLeft: '10px', paddingRight: '10px', paddingBottom: "4px" }}>
-                                    <textarea name="message" id="mess" cols="80" rows="8" onChange={(e) => setMyInputMessage(e.target.value)} value={inputmessage} placeholder='Type here'></textarea>
+                                {logOff ? <div style={{ paddingLeft: '10px', paddingRight: '10px', paddingBottom: "4px" }}>
+                                    <textarea name="message" id="mess" cols="80" rows="8" onChange={(e) => setMyInputMessage(e.target.value)} onKeyDown={(event)=>event.key==='Enter'&& SendMessage()} value={inputmessage} placeholder='Type here'></textarea>
                                     <img src={image9} alt="send" className='sendcircle' onClick={SendMessage} />
-                                </div> : <div style={{width:"40rem",textAlign:'center',marginBottom:"10px",marginTop:'10px',color:'#a89898', fontWeight:'400'}}>
-                                    This chat is assigned to new team member. you no longer have access
+                                </div> : <div style={{ width: "40rem", textAlign: 'center', marginBottom: "10px", marginTop: '10px', color: '#a89898', fontWeight: '400' }}>
+                                    {ChatStatus}
                                 </div>
                                 }
                             </div>
@@ -198,7 +229,7 @@ function ContactCenter() {
                             {OpenUser.email}
                         </div>
                     </div>
-                    {Admin.role!=='Member'&&<div>
+                    {Admin.role !== 'Member' && <div>
                         <h3 className='detailsh3'>Teammates</h3>
                         <div>
                             <div className="userdetailsright" style={{ cursor: 'pointer' }} onClick={() => optionlist('memberlistoption')}>
@@ -228,21 +259,21 @@ function ContactCenter() {
                                 </div>
                             </div>
                         </div>
-                        <div>
-                            <div className="userdetailsright" style={{ cursor: 'pointer' }} onClick={() => optionlist('ticketstatusoption')}>
-                                <div>
-                                    <img src={image7} alt="" />
-                                    Ticket Status
-                                </div>
-                                <img src={image8} alt="arrow" style={{ margin: "0px", marginRight: '15px' }} />
-
-                            </div>
-                            <div id='ticketstatusoption' style={{ marginTop: '15px', display: 'none' }}>
-                                <div className='ticketstatus' style={{ borderTopLeftRadius: '12px', borderTopRightRadius: '12px' }}>Resolved</div>
-                                <div className='ticketstatus' style={{ borderBottomLeftRadius: '12px', borderBottomRightRadius: '12px' }}>Unresolved</div>
-                            </div>
-                        </div>
                     </div>}
+                    <div>
+                        <div className="userdetailsright" style={{ cursor: 'pointer' }} onClick={() => optionlist('ticketstatusoption')}>
+                            <div>
+                                <img src={image7} alt="" />
+                                Ticket Status
+                            </div>
+                            <img src={image8} alt="arrow" style={{ margin: "0px", marginRight: '15px' }} />
+
+                        </div>
+                        <div id='ticketstatusoption' style={{ marginTop: '15px', display: 'none' }}>
+                            <div className='ticketstatus' style={{ borderTopLeftRadius: '12px', borderTopRightRadius: '12px' }} onClick={() => setMyShowResolved({status:true,text:"resolved"})}>Resolved</div>
+                            <div className='ticketstatus' style={{ borderBottomLeftRadius: '12px', borderBottomRightRadius: '12px' }} onClick={() => setMyShowResolved({status:true,text:"unresolved"})}>Unresolved</div>
+                        </div>
+                    </div>
                 </div>}
             </div>
             {Showpopup.status && <div className='assignpopup'>
@@ -252,6 +283,15 @@ function ContactCenter() {
                 <div className='assignpopupbuttondiv'>
                     <button className='assignpopbuttoncancel' onClick={() => setMyShowpopUp({ status: false, id: '' })}>Cancel</button>
                     <button className='assignpopbuttonconfirm' onClick={() => AssignChange(Showpopup.id)}>Confirm</button>
+                </div>
+            </div>}
+            {showresolved.status && <div className='assignpopup'>
+                <div>
+                    Chat will be closed
+                </div>
+                <div className='assignpopupbuttondiv'>
+                    <button className='assignpopbuttoncancel' onClick={() => setMyShowResolved({status:false,text:""})}>Cancel</button>
+                    <button className='assignpopbuttonconfirm' onClick={() => StatusChange(showresolved.text)}>Confirm</button>
                 </div>
             </div>}
         </>

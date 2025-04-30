@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import cloud from '../../Image/cloud.png'
 import image from '../../Image/image 1.png'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './Signup.css'
 import '../Login/LoginPage.css'
 import AlertPage from '../alert/AlertPage'
 function Signup() {
-    const navigation=useLocation()
+    const navigation=useNavigate()
     const [credintial, setMycredintial] = useState({ firstname: "", lastname: "", password: "", email: "", confirmpassword: "", phone: '' })
     const handleChange = (e) => {
         console.log(e)

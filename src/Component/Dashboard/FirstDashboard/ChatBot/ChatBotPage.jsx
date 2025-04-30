@@ -1,10 +1,14 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './ChatBotPage.css'
 import image1 from '../../../../Image/Iconstatus.png'
 import image2 from '../../../../Image/Send.png'
 import image3 from '../../../../Image/pencil.png'
 import image4 from '../../../../Image/Close.png'
+import TicketSystemAPI from '../../../../ContextAPI/TicketsystemApi'
 function ChatBotPage() {
+    const context=useContext(TicketSystemAPI)
+    const{setMychatbotheader,chatbotheader}=context
+    console.log(chatbotheader)
     const para = ("👋 Want to chat about Hubly? I'm an chatbot here to help you find your way.")
     const res = para.trim().split(' ').length
     const [Customize, setMyCustomize] = useState({ headercolor: "#33475B", bgColor: "#EEEEEE", welcomemessage: "👋 Want to chat about Hubly? I'm an chatbot here to help you find your way." })
@@ -12,14 +16,17 @@ function ChatBotPage() {
     const handlechange = (e) => {
         setMymessageoption({ ...messageoption, [e.target.name]: e.target.value })
     }
+    useEffect(()=>{
+        setMychatbotheader({firstmessage:messageoption.firstmessage,secondmessage:messageoption.secondmessage})
+    },[messageoption])
     return (
         <>
             <div>
                 <div className='chatbotheading'>Chat Bot</div>
                 <div className='chatcustomize'>
-                    <div className='chatboxborder' style={{ backgroundColor: `${Customize.bgColor}` }}>
+                    <div className='chatboxborder' style={{ backgroundColor: `${chatbotheader.bgColor}` }}>
                         <div className='chatbox'>
-                            <div className='chatboxheader' style={{ backgroundColor: `${Customize.headercolor}` }}>
+                            <div className='chatboxheader' style={{ backgroundColor: `${chatbotheader.headercolor}` }}>
                                 <img src={image1} alt="icon" />
                                 Hubly
                             </div>
@@ -34,9 +41,7 @@ function ChatBotPage() {
                             </div>
                             <div className='adminmessagearea'>
                                 <div className='adminmessage1' >
-                                    <div className='textrecive'>Hey</div>
-                                    <div className='textrecive'>How can i help you?</div>
-                                    <div className='textrecive'>Ask me Anything!</div>
+                                    <div className='textrecive'>Hey</div>       
                                 </div>
                             </div>
                             <div className='textareadiv'>
@@ -59,13 +64,13 @@ function ChatBotPage() {
                         <div className='chatbotcustomizearea'>
                             <h5>Header Color</h5>
                             <div style={{ display: "flex" }}>
-                                <div className='coloroption' style={{ backgroundColor: '#FFFFFF', border: '1px solid #EEEEEE', cursor: 'pointer' }} onClick={() => setMyCustomize({ headercolor: "#FFFFFF" })}></div>
-                                <div className='coloroption' style={{ backgroundColor: "#000000", cursor: 'pointer' }} onClick={() => setMyCustomize({ headercolor: "#000000" })}></div>
-                                <div className='coloroption' style={{ backgroundColor: "#33475B", cursor: 'pointer' }} onClick={() => setMyCustomize({ headercolor: "#33475B" })}></div>
+                                <div className='coloroption' style={{ backgroundColor: '#FFFFFF', border: '1px solid #EEEEEE', cursor: 'pointer' }} onClick={() => {setMychatbotheader({ headercolor: "#FFFFFF" })}}></div>
+                                <div className='coloroption' style={{ backgroundColor: "#000000", cursor: 'pointer' }} onClick={() => {setMychatbotheader({ headercolor: "#000000" })}}></div>
+                                <div className='coloroption' style={{ backgroundColor: "#33475B", cursor: 'pointer' }} onClick={() => {setMychatbotheader({ headercolor: "#33475B" })}}></div>
                             </div>
                             <div className='coloroptionanswerdiv'>
                                 <div className='showcolor'></div>
-                                <input value={Customize.headercolor} readOnly />
+                                <input value={chatbotheader.headercolor} readOnly />
                             </div>
                         </div>
                         <div className='chatbotcustomizearea'>
@@ -73,13 +78,13 @@ function ChatBotPage() {
                                 Custom Background Color
                             </h5>
                             <div style={{ display: "flex" }}>
-                                <div className='coloroption' style={{ backgroundColor: '#FFFFFF', border: '1px solid #EEEEEE', cursor: "pointer" }} onClick={() => setMyCustomize({ bgColor: "#FFFFFF" })}></div>
-                                <div className='coloroption' style={{ backgroundColor: "#000000", cursor: "pointer" }} onClick={() => setMyCustomize({ bgColor: "#000000" })}></div>
-                                <div className='coloroption' style={{ backgroundColor: "#EEEEEE", cursor: "pointer" }} onClick={() => setMyCustomize({ bgColor: "#EEEEEE" })}></div>
+                                <div className='coloroption' style={{ backgroundColor: '#FFFFFF', border: '1px solid #EEEEEE', cursor: "pointer" }} onClick={() => {setMychatbotheader({ bgColor: "#FFFFFF" })}}></div>
+                                <div className='coloroption' style={{ backgroundColor: "#000000", cursor: "pointer" }} onClick={() => {setMychatbotheader({bgColor:'#000000'})}}></div>
+                                <div className='coloroption' style={{ backgroundColor: "#EEEEEE", cursor: "pointer" }} onClick={() => {setMychatbotheader({bgColor:'#EEEEEE'})}}></div>
                             </div>
                             <div className='coloroptionanswerdiv'>
                                 <div className='showcolor' style={{ backgroundColor: '#EEEEEE', border: '1px solid #EEEEEE' }}></div>
-                                <input value={Customize.bgColor} readOnly />
+                                <input value={chatbotheader.bgColor} readOnly />
                             </div>
                         </div>
                         <div className='chatbotcustomizearea'>
@@ -129,13 +134,30 @@ function ChatBotPage() {
                         </div>
                         <div className='chatbotcustomizearea'>
                             <h5>Missed Chat Timmer</h5>
-                            <div style={{ display: 'flex', flexDirection: 'row' }}>
-                                <div className='chattimmer'>
-                                    <div>00</div>
-                                    <div>:</div>
-                                    <div>10</div>
-                                    <div>:</div>
-                                    <div>00</div>
+                            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end' }}>
+                                <div style={{ display: 'flex', flexDirection: 'column', width:'14.5rem'}}>
+                                    <div className='chattimmer'>
+                                        <div>12</div>
+                                        <div>:</div>
+                                        <div>09</div>
+                                        <div>:</div>
+                                        <div>59</div>
+                                    </div>
+                                    <div className='chattimmer' style={{backgroundColor:'#d3d3ff'}}>
+                                        <div>00</div>
+                                        <div>:</div>
+                                        <div>10</div>
+                                        <div>:</div>
+                                        <div>11</div>
+                                    </div>
+                                    <div className='chattimmer'>
+
+                                        <div>00</div>
+                                        <div>:</div>
+                                        <div>11</div>   
+                                        <div>:</div>
+                                        <div>01</div>
+                                    </div>
                                 </div>
                                 <div>
                                     <button className='buttonsavetime'>Save</button>

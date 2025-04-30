@@ -9,30 +9,34 @@ router.post('/user_signup', async (req, res) => {
     let success = true
     let admin = await AdminSchema.findOne()
     let member = await UserSchema.findOne({ email: req.body.email })
+    const date=new Date()
     if (member) {
         success=false
-        return res.status(400).json({ success,member, errors:"Already exist" });
+        return res.status(400).json({ success, member, errors: "Already exist"});
     }
     member = await UserSchema.create({
         AdminId: admin._id,
         name: req.body.name,
         email: req.body.email,
-        phone: req.body.phone
+        phone: req.body.phone,
+        time:date
     })
-
     const data = {
         member: {
             id: member.id
+
         }
     }
-
-    return res.status(200).json({ success, message: "Thank you" })
+    const getuser=await UserSchema.findById(data.member.id)
+    // const jwt_Sign = "Sachin_Saxena"
+    // const jwttoken = jwt.sign(data, jwt_Sign)
+    success = true
+    return res.status(200).json({ success, message: "Thank you",getuser})
 })
 
 //? ROUTER 2 FOR USER LOGIN
 router.post('/user_login', async (req, res) => {
     const { email } = req.query
-    // console.log(req.query.email)
     try {
         let member = await UserSchema.findOne({ email })
         if (!member) {
@@ -51,28 +55,27 @@ router.post('/user_login', async (req, res) => {
     }
 })
 // ROUTER 3 FOR GETTING MEMBER DATA
-router.get('/get_USERdata', FetchUser, async (req, res) => {
+router.get('/get_USERdata', async (req, res) => {
     try {
-        const userId = req.user;
+        let success=false
+        const userId =req.headers.id;
         const admin = await UserSchema.findById(userId).select('-__v')
-        res.json(admin)
+        success=true
+        res.status(200).json({success,admin})
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         res.status(500).send("Some Error Occurred")
     }
 })
-router.get('/getAll_User',async(req,res)=>{
-    let success=false
-    const user=await UserSchema.find()
-    if(!user){
+router.get('/getAll_User', async (req, res) => {
+    let success = false
+    const user = await UserSchema.find()
+    if (!user) {
         return res.status(404).json(success)
     }
-    success=true
-    return res.status(200).json({success,user})
+    success = true
+    return res.status(200).json({ success, user })
 })
-// {
-//   "name":"Sachinsaxena",
-//   "email":"user@gmail.com",
-//   "phone":123456789
-// }
+
+
 module.exports = router

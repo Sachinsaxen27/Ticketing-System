@@ -12,8 +12,10 @@ function TeamsPage() {
     const context = useContext(TicketSystemAPI)
     const { Admininfo, Memberinfo } = context
     const id = Memberinfo.admin ? Memberinfo.admin : Admininfo._id
+    console.log(id)
     const [adminData, setMyadminData] = useState({})
     const [memberdata, setMyMemberData] = useState([])
+    const[memberEdit,setMyMemberEdit]=useState()
     useEffect(() => {
 
         const handleClickOutside = (event) => {
@@ -56,10 +58,17 @@ function TeamsPage() {
     useEffect(() => {
         HandleAdmin()
         HandleMemberlist()
-
-    }, [])
-    console.log(adminData)
-    console.log(memberdata[1])
+    }, [Showform])
+    const MemberDelete = async (id) => {
+        const response = await fetch(`http://localhost:5000/api/adminlogin/deletemember/${id}`, {
+            method: "DELETE",
+            headers: {
+                'Content-type': 'application/json'
+            }
+        })
+        const json = await response.json()
+        HandleMemberlist()
+    }
     return (
         <>
             <div>
@@ -93,21 +102,21 @@ function TeamsPage() {
                                 <td></td>
                             </tr>
                             {memberdata.map((element, index) => {
-                                return <tr>
+                                return <tr key={index}>
                                     <td className='memberuserprofile'><img src={image1} alt="user" /></td>
                                     <td>{element.name}</td>
-                                    <td>{element.phone?element.phone:"+1 (000) 000-000"}</td>
+                                    <td>{element.phone ? element.phone : "+1 (000) 000-000"}</td>
                                     <td>{element.email}</td>
                                     <td>{element.role}</td>
                                     <td></td>
                                     <td></td>
-                                    {Admininfo.role==='Admin'?<td className='editicons'>
-                                        <img src={image2} alt="edit" />
-                                        <img src={image3} alt="delete" />
-                                    </td>:<td></td>}
+                                    {Admininfo.role === 'Admin' ? <td className='editicons'>
+                                        <img src={image2} alt="edit" onClick={()=>{setMyShowForm(true),setMyMemberEdit(element)}} />
+                                        <img src={image3} alt="delete" onClick={() => MemberDelete(element._id)} />
+                                    </td> : <td></td>}
                                 </tr>
                             })}
-                            
+
                         </tbody>
                     </table>
                     {Memberinfo.role !== 'Member' ? <div className='buttondiv'>
@@ -117,7 +126,7 @@ function TeamsPage() {
                     </div> : ""}
                 </div>
             </div>
-            {Showform && <CreateMemberForm formpop={formpop} closeform={() => setMyShowForm(false)} />}
+            {Showform && <CreateMemberForm memberedit={memberEdit}  formpop={formpop} closeform={() => setMyShowForm(false)} />}
         </>
     )
 }

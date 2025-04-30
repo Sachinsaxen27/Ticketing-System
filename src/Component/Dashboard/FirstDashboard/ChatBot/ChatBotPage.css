@@ -85,7 +85,7 @@
 .messageareadiv {
     height: 20.4rem;
     display: flex;
-    justify-content: space-between;
+    justify-content: end;
     flex-direction: column;
 }
 
@@ -114,7 +114,7 @@
     padding-left: 10px;
     padding-top: 10px;
     padding-bottom: 10px;
-    width: 20rem;
+    width: 22rem;
     /* width: calc(100vw - 75rem); */
 }
 
@@ -243,13 +243,17 @@
     justify-content: center;
     font-size: 25px;
     font-weight: 400;
+    /* flex-direction: column; */
+    width:-webkit-fill-available;
+    text-align: center;
 }
 
 .chattimmer div {
-    margin-left: 10px;
-    margin-right: 10px;
+    margin-left: 11px;
+    margin-right: 11px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
-
 .buttonsavetime {
     padding: 9px;
     background-color: #184E7F;

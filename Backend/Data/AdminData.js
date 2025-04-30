@@ -147,23 +147,23 @@ router.put('/edit_Profile/:id', async (req, res) => {
 // ROUTER 5 FOR ALL CHAT AVAILABLE IN ADMIN
 router.get('/allchats_Available_inAdmin', async (req, res) => {
     const id = req.headers.id
-    let success=false
+    let success = false
     if (id) {
         try {
             const user = await UserSchema.find({ AdminId: id })
             if (user.length === 0) {
-                success=false
-                return res.status(200).json({ success,message: 'No chats available' });
+                success = false
+                return res.status(200).json({ success, message: 'No chats available' });
             }
-            success=true
-            return res.status(200).json({success,user});
-        } catch(error) {
-            success=false
-            return res.status(500).json({success, error: 'Something went wrong', details: error.message });
+            success = true
+            return res.status(200).json({ success, user });
+        } catch (error) {
+            success = false
+            return res.status(500).json({ success, error: 'Something went wrong', details: error.message });
         }
-    }else{
-        success=false
-        return res.status(400).json({ success,error: 'Admin ID not provided in headers' });
+    } else {
+        success = false
+        return res.status(400).json({ success, error: 'Admin ID not provided in headers' });
     }
 })
 
@@ -175,14 +175,53 @@ router.put('/assignchat/:id', async (req, res) => {
     const participants = [adminId, userId]
     let User = await UserSchema.findById(userId)
     let conversation = await Conversation.findById(id)
+    let message = await MessageSchema.find({ conversationID: id })
+    // let messageid=await MessageSchema.
     if (!conversation && !User) {
         return res.status(404).json({ success, message: "No Conversation" })
     }
+    message = await MessageSchema.updateMany({ conversationID: id, role: 'admin' }, {
+        $set: {
+            senderid: adminId,
+            senderModel: 'memberlogin',
+            role: 'member'
+        }
+    })
     User = await UserSchema.findByIdAndUpdate(userId, { AdminId: adminId }, { new: true })
     conversation = await Conversation.findByIdAndUpdate(id, { participants: participants }, { new: true })
+
     success = true
     return res.status(200).json({ success, message: "Assign to other member is done" })
     // const participants=[userId,adminId]
 
 })
+//! ROUTER 6 FOR ASSIGN CHAT TO MEMBER
+router.put('/conversationstatus/:id', async (req, res) => {
+    let success = false
+    const id = req.params.id
+    const {status} = req.body
+    let conversation = await Conversation.findById(id)
+    // let messageid=await MessageSchema.
+    if (!conversation) {
+        return res.status(404).json({ success, message: "No Conversation" })
+    }
+    conversation = await Conversation.findByIdAndUpdate(id, { status: status }, { new: true })
+
+    success = true
+    return res.status(200).json({ success, message: "Status Updated" })
+    // const participants=[userId,adminId]
+
+})
+router.delete('/deletemember/:id', async (req, res) => {
+    let success = false
+    try {
+        let deletemember = await MemberSchema.findByIdAndDelete(req.params.id)
+        success = true
+        res.status(200).send(success)
+    } catch (error) {
+        // console.log(error)
+        res.status(400).send(error)
+    }
+})
+
 module.exports = router

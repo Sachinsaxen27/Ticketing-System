@@ -12,7 +12,6 @@ const fetchuser = async (req, res, next) => {
 
         next();
     } catch (error) {
-        console.log(error,'er')
         return res.status(401).json({ error: "Incorrects" })
     }
 }

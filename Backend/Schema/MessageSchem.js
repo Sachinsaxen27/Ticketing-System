@@ -16,8 +16,7 @@ const MessageSchem = new Schema({
         sender: String,
         text: String,
         time: {
-            type: Date,
-            default: Date.now
+            type: String
         }
     },
     role: {

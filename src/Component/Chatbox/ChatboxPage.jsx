@@ -1,18 +1,23 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import image1 from '../../Image/message.png'
 import image2 from '../../Image/Ellipse 6.png'
 import image3 from '../../Image/Close.png'
 import image4 from '../../Image/Send.png'
 import image5 from '../../Image/Cross.png'
 import './ChatboxPage.css'
+import TicketSystemAPI from '../../ContextAPI/TicketsystemApi'
 function ChatboxPage() {
+    const context=useContext(TicketSystemAPI)
+    const {chatbotheader}=context
+    console.log(chatbotheader)
     const [inputMessage, setMyinputMessage] = useState('')
-    const [messagearr, setmyMessagearray] = useState()
+    const [messagearr, setmyMessagearray] = useState([{role:"admin",text:chatbotheader.firstmessage,type:'text'},{role:"admin",text:chatbotheader.secondmessage,type:'text'}])
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [usercredintial, setMyUsercredintial] = useState({ name: "", email: "", phone: "" })
     const [FetchMessage, setMyFetchMessage] = useState([])
     const [userInfo, setMyuserInfo] = useState()
     const [boximage, setMyboxImage] = useState(image1)
+    const date = new Date().toLocaleDateString()
     const handleSendMessage = () => {
         if (!localStorage.getItem('user-token')) {
             const newMessage = {
@@ -38,22 +43,44 @@ function ChatboxPage() {
             SendMessage()
         }
     };
-    const SendMessage = async (e) => {
-        // const id =FetchMessage.length>0?FetchMessage.find(msg => msg.role === 'admin')?.senderid._id:userInfo.AdminId
-        console.log(FetchMessage)
-        const response = await fetch('http://localhost:5000/api/messagebox/send_message', {
-            method: "POST",
+    const UserInformation = async (e) => {
+
+        const response = await fetch('http://localhost:5000/api/userlogin/get_USERdata', {
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
+                'id': localStorage.getItem("user-token")
             },
-            body: JSON.stringify({ userId: userInfo._id, adminId:userInfo.AdminId, senderid: userInfo._id, senderModel: "userlogin", text: inputMessage, sender: 'user', role: 'user' })
-        })
+        });
         const json = await response.json()
         if (json.success) {
-            GetConversation()
-            console.log(json)
-            setMyinputMessage('')
+            setMyuserInfo(json.admin)
+            if (json.admin) {
+                GetConversation()
+            }
         }
+    }
+    useEffect(() => {
+        if (localStorage.getItem('user-token')) {
+            UserInformation()
+        }
+    }, [])
+    const SendMessage = async (e) => {
+        if (inputMessage.length > 0) {
+            const response = await fetch('http://localhost:5000/api/messagebox/send_message', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ userId: userInfo._id, adminId: userInfo.AdminId, senderid: userInfo._id, senderModel: "userlogin", text: inputMessage, sender: 'user', role: 'user', time: date })
+            })
+            const json = await response.json()
+            if (json.success) {
+                GetConversation()
+                console.log(json)
+                setMyinputMessage('')
+            }
+        }   
     }
     const handleshowintro = () => {
         let element = document.getElementById('welcomeback');
@@ -93,21 +120,7 @@ function ChatboxPage() {
             setMyFetchMessage(json.messages)
         }
     }
-    const UserInformation = async (e) => {
-        const response = await fetch('http://localhost:5000/api/userlogin/get_USERdata', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'auth-token': localStorage.getItem("user-token")
-            },
-        });
-        const json = await response.json()
-        if (json) {
-            setMyuserInfo(json)
-        }
-    }
     const UserloGin = async (e) => {
-        // e.preventDefault();
         const response = await fetch(`http://localhost:5000/api/userlogin/user_login?email=${localStorage.getItem('user-email')}`, {
             method: 'POST',
             headers: {
@@ -122,44 +135,38 @@ function ChatboxPage() {
     }
     const handleSumbitfomr = async (e) => {
         e.preventDefault();
-        if (localStorage.getItem('user-token')===null) {
+        console.log("Hit")
+        const response = await fetch('http://localhost:5000/api/userlogin/user_signup', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
 
-            const response = await fetch('http://localhost:5000/api/userlogin/user_signup', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-
-                },
-                body: JSON.stringify({ name: usercredintial.name, email: usercredintial.email, phone: usercredintial.phone })
-            });
-            const json = await response.json()
-            if (json.success) {
-                localStorage.setItem('user-email', usercredintial.email)
-            }
-            else {
-                UserloGin()
-
-            }
-        } else {
-            UserloGin()
+            },
+            body: JSON.stringify({ name: usercredintial.name, email: usercredintial.email, phone: usercredintial.phone })
+        });
+        const json = await response.json()
+        if (json.success) {
+            setMyuserInfo(json.getuser)
+            console.log(json.getuser)
+            localStorage.setItem('user-token', json.getuser._id)
         }
+        else {
+            setMyuserInfo(json.member)
+            if (json.member) {
+                localStorage.setItem('user-token', json.member._id)
+            }
+            console.log(json.member)
+            // UserloGin()
+
+        }
+
     }
-    useEffect(() => {
-        if (localStorage.getItem('user-token')) {
-            UserInformation()
-        
-        }
-    }, [])
     useEffect(() => {
         if (userInfo?._id) {
             GetConversation()
         }
     }, [userInfo])
-    useEffect(()=>{
-        if(localStorage.getItem('user-email')){
-            UserloGin()
-        }
-    },[])
+    console.log(userInfo)
     return (
         <>
             <div>
@@ -178,7 +185,7 @@ function ChatboxPage() {
                 </div>
             </div>
             <div className='messagecard' id='chatboxmessage' style={{ display: 'none' }}>
-                <div className='messagecardheader'>
+                <div className='messagecardheader'style={{backgroundColor:chatbotheader.headercolor||''}}>
                     <img src={image2} alt="icond" />
                     Hubly
                 </div>
@@ -208,7 +215,6 @@ function ChatboxPage() {
                                             </form>
                                             <div className='buttonsumbitformchatbox'><button className='thankyou' onClick={handleSumbitfomr}>Thank You!</button></div>
                                         </div>
-                                        {/* <div className='teamsmembermessage formfill'>Thank you</div> */}
                                     </div>}
                             </div>
                         ))}
@@ -219,7 +225,7 @@ function ChatboxPage() {
                         })}
                     </div>
                     <div className='messageinput'>
-                        <textarea name="messagebox" id="messagebox2" cols="45" rows="3" onChange={(e) => setMyinputMessage(e.target.value)} value={inputMessage} placeholder='Write a message'></textarea>
+                        <textarea name="messagebox" id="messagebox2" cols="45" rows="3" onChange={(e) => setMyinputMessage(e.target.value)} value={inputMessage} placeholder='Write a message' onKeyDown={(event)=>event.key==='Enter'&& handleSendMessage()}></textarea>
                         <img src={image4} alt="send" onClick={handleSendMessage} />
                     </div>
                 </div>

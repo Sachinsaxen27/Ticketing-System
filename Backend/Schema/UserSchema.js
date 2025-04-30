@@ -18,6 +18,7 @@ const UserSchema = new Schema({
         type: Number,
         required: true
     },
+    time:Date
 
 })
 module.exports = mongoose.model('userlogin', UserSchema)

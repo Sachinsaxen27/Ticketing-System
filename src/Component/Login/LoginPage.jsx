@@ -35,8 +35,6 @@ function LoginPage() {
         }
         else {
             console.log('error')
-            // showAlert("Invalid Credenital", 'danger')
-            // history('/dashboard')
         }
     }
     const handleChange = (e) => {

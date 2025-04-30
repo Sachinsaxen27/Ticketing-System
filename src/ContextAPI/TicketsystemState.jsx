@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import TicketsystemApi from './TicketsystemApi'
 function TicketsystemState({ children }) {
     const [Admininfo, setMyAdmininfo] = useState({})
+    const[chatbotheader,setMychatbotheader]=useState({ headercolor: "#33475B", bgColor: "#EEEEEE", welcomemessage: "👋 Want to chat about Hubly? I'm an chatbot here to help you find your way.",firstmessage: " How can i help you?", secondmessage: "Ask me anything!"  })
     const [Memberinfo, setMyMemberinfo] = useState({})
     const getAdmininfo = async () => {
         const response = await fetch("http://localhost:5000/api/adminlogin/get_admin", {
@@ -38,10 +39,10 @@ function TicketsystemState({ children }) {
             getMemberinfo()
         }
     }, [])
-    // console.log(Memberinfo)
+
     return (
         <>
-            <TicketsystemApi.Provider value={{ getAdmininfo, Admininfo, getMemberinfo, Memberinfo }}>
+            <TicketsystemApi.Provider value={{ getAdmininfo, Admininfo, getMemberinfo, Memberinfo,setMychatbotheader,chatbotheader}}>
                 {children}
             </TicketsystemApi.Provider>
         </>

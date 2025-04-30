@@ -193,7 +193,13 @@ textarea:focus {
     font-size: 14px;
     line-height: 1.4;
 }
-
+.chatbotlandings{    
+    /* max-width: 60%; */
+    padding: 10px 15px;
+    border-radius: 15px;
+    font-size: 14px;
+    line-height: 1.4;
+}
 .chatbotlanding.user {
     background-color: #FFFFFF;
     align-self: flex-end;
@@ -201,8 +207,20 @@ textarea:focus {
 .chatbotlanding.admin {
     background-color: #FFFFFF;
     align-self: flex-start;
+    
 }
-
+.chatbotlandings.user{
+    background-color: #FFFFFF;
+    align-self: flex-end;
+}
+.chatbotlandings.admin{
+    background-color: #FFFFFF;  
+    align-self: flex-start;
+}
+.chatbotlandings.forms{
+    background-color: transparent   ;
+    align-self: flex-start;
+}
 .tempraroychat {
     display: flex;
     align-items: flex-start;
