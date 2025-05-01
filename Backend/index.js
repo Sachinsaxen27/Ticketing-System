@@ -8,15 +8,9 @@ database()
 const app = express()
 const port = process.env.PORT || 5000;
 
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*'); // Allow all origins
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS'); // Allow common HTTP methods
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Allow headers
-    if (req.method === 'OPTIONS') {
-        return res.sendStatus(200); // Quickly respond to preflight requests
-    }
-    next();
-});
+app.use(cors({
+    origin: ['http://localhost:5173', 'https://magenta-begonia-83cf73.netlify.app/']
+}));
 
 // app.options("*", cors(corsvalue))
 app.use(express.json({ limit: "10mb", extended: true }))

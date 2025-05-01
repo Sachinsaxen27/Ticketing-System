@@ -19,7 +19,6 @@ function LoginPage() {
 
             },
             body: JSON.stringify({ email: credintial.email, password: credintial.password }),
-            credentials:true
         });
         const json = await response.json()
         if (json.success) {
