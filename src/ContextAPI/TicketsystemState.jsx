@@ -5,7 +5,7 @@ function TicketsystemState({ children }) {
     const[chatbotheader,setMychatbotheader]=useState({ headercolor: "#33475B", bgColor: "#EEEEEE", welcomemessage: "👋 Want to chat about Hubly? I'm an chatbot here to help you find your way.",firstmessage: " How can i help you?", secondmessage: "Ask me anything!"  })
     const [Memberinfo, setMyMemberinfo] = useState({})
     const getAdmininfo = async () => {
-        const response = await fetch("https://ticketsystem-backend-6gfl.onrender.com/api/adminlogin/get_admin", {
+        const response = await fetch("https://ticketsystem-backend-8vh3.onrender.com/api/adminlogin/get_admin", {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -19,7 +19,7 @@ function TicketsystemState({ children }) {
     }
     const getMemberinfo = async () => {
         console.log('hit')
-        const response = await fetch("https://ticketsystem-backend-6gfl.onrender.com/api/memberlogin/get_member_data", {
+        const response = await fetch("https://ticketsystem-backend-8vh3.onrender.com/api/memberlogin/get_member_data", {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
