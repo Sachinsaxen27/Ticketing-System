@@ -8,6 +8,8 @@ import Signup from './Component/SignUp/Signup';
 import MainDashboard from './Component/Dashboard/FirstDashboard/MainDashboard';
 import TicketsystemState from './ContextAPI/TicketsystemState';
 function App() {
+  const BaseUrl = import.meta.env;
+  console.log("Process", BaseUrl)
   return (
     <>
       <TicketsystemState>

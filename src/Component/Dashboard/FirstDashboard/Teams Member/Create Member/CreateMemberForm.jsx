@@ -8,8 +8,9 @@ function CreateMemberForm(props) {
     const { Admininfo, Memberinfo } = context
     const [credintial, setMycredintial] = useState({ name: memberedit.name || "", email: memberedit.email || "" })
     const [designation, setMydesignation] = useState("Member")
+    const BaseUrl = import.meta.env.VITE_API_URL;
     const Updateprofile = async (e) => {
-        const response = await fetch(`https://ticketsystem-backend-vtni.onrender.com/api/adminlogin/edit_Profile/${memberedit._id}`, {
+        const response = await fetch(BaseUrl+`/api/adminlogin/edit_Profile/${memberedit._id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -31,7 +32,7 @@ function CreateMemberForm(props) {
         if (memberedit) {
             Updateprofile()
         } else {
-            const response = await fetch('https://ticketsystem-backend-vtni.onrender.com/api/memberlogin/add_member', {
+            const response = await fetch(BaseUrl+'/api/memberlogin/add_member', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -16,6 +16,7 @@ function TeamsPage() {
     const [adminData, setMyadminData] = useState({})
     const [memberdata, setMyMemberData] = useState([])
     const[memberEdit,setMyMemberEdit]=useState()
+    const BaseUrl = import.meta.env.VITE_API_URL;
     useEffect(() => {
 
         const handleClickOutside = (event) => {
@@ -34,7 +35,7 @@ function TeamsPage() {
         };
     }, [Showform]);
     const HandleAdmin = async () => {
-        const response = await fetch('https://ticketsystem-backend-vtni.onrender.com/api/memberlogin/All_ADMIN_data', {
+        const response = await fetch(BaseUrl+'/api/memberlogin/All_ADMIN_data', {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
@@ -45,7 +46,7 @@ function TeamsPage() {
         setMyadminData(json)
     }
     const HandleMemberlist = async () => {
-        const response = await fetch('https://ticketsystem-backend-vtni.onrender.com/api/adminlogin/All_member_list', {
+        const response = await fetch(BaseUrl+'/api/adminlogin/All_member_list', {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
@@ -60,7 +61,7 @@ function TeamsPage() {
         HandleMemberlist()
     }, [Showform])
     const MemberDelete = async (id) => {
-        const response = await fetch(`https://ticketsystem-backend-vtni.onrender.com/api/adminlogin/deletemember/${id}`, {
+        const response = await fetch(BaseUrl+`/api/adminlogin/deletemember/${id}`, {
             method: "DELETE",
             headers: {
                 'Content-type': 'application/json'

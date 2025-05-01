@@ -51,8 +51,10 @@ function AnalyticPage() {
   //   }
   // ])
   const[data,setMyData]=useState([])
+  const BaseUrl = import.meta.env.VITE_API_URL;
+
   const GetAverage = async () => {
-    const response = await fetch("https://ticketsystem-backend-vtni.onrender.com/api/messagebox/Conversation_Average", {
+    const response = await fetch(BaseUrl+"/api/messagebox/Conversation_Average", {
       method: "GET",
       headers: {
         'Content-Type': 'application/json',
@@ -66,7 +68,7 @@ function AnalyticPage() {
     }
   }
   const MissedChat = async () => {
-    const response = await fetch("https://ticketsystem-backend-vtni.onrender.com/api/messagebox/Missed_chat", {
+    const response = await fetch(BaseUrl+"/api/messagebox/Missed_chat", {
       method: "GET",
       headers: {
         'Content-Type': 'application/json',

@@ -13,6 +13,8 @@ function SettingsPage() {
     console.log(value)
     let firstname = ''
     let lastname = ''
+    const BaseUrl = import.meta.env.VITE_API_URL;
+    
     useEffect(() => {
         let fullname = value.name || ''
         if (fullname.includes(" ")) {
@@ -36,7 +38,7 @@ function SettingsPage() {
     const Updateprofile = async(e) => {
         let finalname=credintial.firstname+' '+credintial.lastname
         e.preventDefault()
-        const response = await fetch(`https://ticketsystem-backend-vtni.onrender.com/api/adminlogin/edit_Profile/${value._id}`, {
+        const response = await fetch(BaseUrl+`/api/adminlogin/edit_Profile/${value._id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

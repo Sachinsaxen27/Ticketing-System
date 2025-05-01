@@ -9,10 +9,11 @@ function LoginPage() {
     const navigate=useNavigate()
     const context=useContext(TicketsystemApi)
     const{getAdmininfo,getMemberinfo}=context
+    const BaseUrl = import.meta.env.VITE_API_URL;
     // localStorage.clear()
     const handlesubmit = async (e) => {
         e.preventDefault();
-        const response = await fetch('https://ticketsystem-backend-vtni.onrender.com/api/adminlogin/admin_login', {
+        const response = await fetch(BaseUrl+'/api/adminlogin/admin_login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

@@ -33,8 +33,10 @@ function MainDashbaord() {
     const [chatNumber, setMyChatNumber] = useState();
     const [OptionChoice, setMyOptionChoice] = useState()
     const [SearchPara, setMySearchPata] = useState('')
+    const BaseUrl = import.meta.env.VITE_API_URL;
+    
     const GetAllChats = async () => {
-        const response = await fetch(`https://ticketsystem-backend-vtni.onrender.com/api/messagebox/All_conversation/${OptionChoice}`, {
+        const response = await fetch(BaseUrl+`/api/messagebox/All_conversation/${OptionChoice}`, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
@@ -50,7 +52,7 @@ function MainDashbaord() {
     }, [OptionChoice])
     const GetConversation = async (e) => {
         if (Admin._id) {
-            const response = await fetch(`https://ticketsystem-backend-vtni.onrender.com/api/messagebox/get_messages/${Admin._id}`, {
+            const response = await fetch(BaseUrl+`/api/messagebox/get_messages/${Admin._id}`, {
                 method: "GET",
                 headers: {
                     'Content-Type': 'application/json',
@@ -99,7 +101,7 @@ function MainDashbaord() {
         clearInterval()
     }
     const Searchbyticket = async (e) => {
-        const response = await fetch(`https://ticketsystem-backend-vtni.onrender.com/api/messagebox/Search_Conversation/${SearchPara}`, {
+        const response = await fetch(BaseUrl+`/api/messagebox/Search_Conversation/${SearchPara}`, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',

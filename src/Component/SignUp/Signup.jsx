@@ -13,11 +13,12 @@ function Signup() {
         setMycredintial({ ...credintial, [e.target.name]: e.target.value })
     }
     const [error, setMyerror] = useState(false)
+    const BaseUrl = import.meta.env.VITE_API_URL;
     const handlesubmit = async (e) => {
         e.preventDefault()
         if (password !== confirmpassword) {
             let fullname = credintial.firstname + ' ' + credintial.lastname
-            const response = await fetch('https://ticketsystem-backend-vtni.onrender.com/api/adminlogin/admin_Registration', {
+            const response = await fetch(BaseUrl+'/api/adminlogin/admin_Registration', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
