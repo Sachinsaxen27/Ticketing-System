@@ -69,7 +69,8 @@ function ContactCenter() {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ adminId: val, userId: OpenUser._id })
+            body: JSON.stringify({ adminId: val, userId: OpenUser._id }),
+            credentials:true
         })
         const json = await response.json()
         if (json.success) {
@@ -87,7 +88,8 @@ function ContactCenter() {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ status: val })
+            body: JSON.stringify({ status: val }),
+            credentials:true
         })
         const json = await response.json()
         if (json.success) {
@@ -127,7 +129,8 @@ function ContactCenter() {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ userId: OpenUser._id, adminId: Admin._id, senderid: Admin._id, senderModel: model, text: inputmessage, sender: role, role: role })
+            body: JSON.stringify({ userId: OpenUser._id, adminId: Admin._id, senderid: Admin._id, senderModel: model, text: inputmessage, sender: role, role: role }),
+            credentials:true
         })
         const json = await response.json()
         if (json) {

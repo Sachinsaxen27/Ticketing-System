@@ -22,7 +22,8 @@ function Signup() {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ name: fullname, phone: credintial.phone,email: credintial.email, password: credintial.password})
+                body: JSON.stringify({ name: fullname, phone: credintial.phone,email: credintial.email, password: credintial.password}),
+                credentials:true
             });
             const json = await response.json()
             if (json.success) {
