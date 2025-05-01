@@ -8,7 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "start": "concurrently \"npm run dev\" \"nodemon Backend/index.js\""
+    "both": "concurrently \"npm run dev\" \"nodemon Backend/index.js\""
   },
   "dependencies": {
     "concurrently": "^9.1.2",
