@@ -17,7 +17,7 @@ function Signup() {
         e.preventDefault()
         if (password !== confirmpassword) {
             let fullname = credintial.firstname + ' ' + credintial.lastname
-            const response = await fetch('https://ticketsystem-backend-8vh3.onrender.com/api/adminlogin/admin_Registration', {
+            const response = await fetch('https://ticketsystem-backend-vtni.onrender.com/api/adminlogin/admin_Registration', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

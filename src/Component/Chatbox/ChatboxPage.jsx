@@ -45,7 +45,7 @@ function ChatboxPage() {
     };
     const UserInformation = async (e) => {
 
-        const response = await fetch('https://ticketsystem-backend-8vh3.onrender.com/api/userlogin/get_USERdata', {
+        const response = await fetch('https://ticketsystem-backend-vtni.onrender.com/api/userlogin/get_USERdata', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -69,7 +69,7 @@ function ChatboxPage() {
     console.log(uri)
     const SendMessage = async (e) => {
         if (inputMessage.length > 0) {
-            const response = await fetch('https://ticketsystem-backend-8vh3.onrender.com/api/messagebox/send_message', {
+            const response = await fetch('https://ticketsystem-backend-vtni.onrender.com/api/messagebox/send_message', {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
@@ -112,7 +112,7 @@ function ChatboxPage() {
         setMyUsercredintial({ ...usercredintial, [e.target.name]: e.target.value })
     }
     const GetConversation = async (e) => {
-        const response = await fetch(`https://ticketsystem-backend-8vh3.onrender.com/api/messagebox/get_messages/${userInfo._id}`, {
+        const response = await fetch(`https://ticketsystem-backend-vtni.onrender.com/api/messagebox/get_messages/${userInfo._id}`, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
@@ -124,7 +124,7 @@ function ChatboxPage() {
         }
     }
     const UserloGin = async (e) => {
-        const response = await fetch(`https://ticketsystem-backend-8vh3.onrender.com/api/userlogin/user_login?email=${localStorage.getItem('user-email')}`, {
+        const response = await fetch(`https://ticketsystem-backend-vtni.onrender.com/api/userlogin/user_login?email=${localStorage.getItem('user-email')}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -139,7 +139,7 @@ function ChatboxPage() {
     const handleSumbitfomr = async (e) => {
         e.preventDefault();
         console.log("Hit")
-        const response = await fetch('https://ticketsystem-backend-8vh3.onrender.com/api/userlogin/user_signup', {
+        const response = await fetch('https://ticketsystem-backend-vtni.onrender.com/api/userlogin/user_signup', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
