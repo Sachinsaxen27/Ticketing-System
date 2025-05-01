@@ -12,7 +12,7 @@ function LoginPage() {
     // localStorage.clear()
     const handlesubmit = async (e) => {
         e.preventDefault();
-        const response = await fetch('http://localhost:5000/api/adminlogin/admin_login', {
+        const response = await fetch('https://ticketsystem-backend-6gfl.onrender.com/api/adminlogin/admin_login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

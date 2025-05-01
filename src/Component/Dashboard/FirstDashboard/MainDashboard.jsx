@@ -34,7 +34,7 @@ function MainDashbaord() {
     const [OptionChoice, setMyOptionChoice] = useState()
     const [SearchPara, setMySearchPata] = useState('')
     const GetAllChats = async () => {
-        const response = await fetch(`http://localhost:5000/api/messagebox/All_conversation/${OptionChoice}`, {
+        const response = await fetch(`https://ticketsystem-backend-6gfl.onrender.com/api/messagebox/All_conversation/${OptionChoice}`, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
@@ -50,7 +50,7 @@ function MainDashbaord() {
     }, [OptionChoice])
     const GetConversation = async (e) => {
         if (Admin._id) {
-            const response = await fetch(`http://localhost:5000/api/messagebox/get_messages/${Admin._id}`, {
+            const response = await fetch(`https://ticketsystem-backend-6gfl.onrender.com/api/messagebox/get_messages/${Admin._id}`, {
                 method: "GET",
                 headers: {
                     'Content-Type': 'application/json',
@@ -99,7 +99,7 @@ function MainDashbaord() {
         clearInterval()
     }
     const Searchbyticket = async (e) => {
-        const response = await fetch(`http://localhost:5000/api/messagebox/Search_Conversation/${SearchPara}`, {
+        const response = await fetch(`https://ticketsystem-backend-6gfl.onrender.com/api/messagebox/Search_Conversation/${SearchPara}`, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',

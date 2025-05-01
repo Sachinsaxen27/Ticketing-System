@@ -36,7 +36,7 @@ function SettingsPage() {
     const Updateprofile = async(e) => {
         let finalname=credintial.firstname+' '+credintial.lastname
         e.preventDefault()
-        const response = await fetch(`http://localhost:5000/api/adminlogin/edit_Profile/${value._id}`, {
+        const response = await fetch(`https://ticketsystem-backend-6gfl.onrender.com/api/adminlogin/edit_Profile/${value._id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

@@ -9,7 +9,7 @@ function CreateMemberForm(props) {
     const [credintial, setMycredintial] = useState({ name: memberedit.name || "", email: memberedit.email || "" })
     const [designation, setMydesignation] = useState("Member")
     const Updateprofile = async (e) => {
-        const response = await fetch(`http://localhost:5000/api/adminlogin/edit_Profile/${memberedit._id}`, {
+        const response = await fetch(`https://ticketsystem-backend-6gfl.onrender.com/api/adminlogin/edit_Profile/${memberedit._id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -30,7 +30,7 @@ function CreateMemberForm(props) {
         if (memberedit) {
             Updateprofile()
         } else {
-            const response = await fetch('http://localhost:5000/api/memberlogin/add_member', {
+            const response = await fetch('https://ticketsystem-backend-6gfl.onrender.com/api/memberlogin/add_member', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

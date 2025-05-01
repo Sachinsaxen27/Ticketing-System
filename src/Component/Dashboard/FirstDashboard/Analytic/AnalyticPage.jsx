@@ -52,7 +52,7 @@ function AnalyticPage() {
   // ])
   const[data,setMyData]=useState([])
   const GetAverage = async () => {
-    const response = await fetch("http://localhost:5000/api/messagebox/Conversation_Average", {
+    const response = await fetch("https://ticketsystem-backend-6gfl.onrender.com/api/messagebox/Conversation_Average", {
       method: "GET",
       headers: {
         'Content-Type': 'application/json',
@@ -66,7 +66,7 @@ function AnalyticPage() {
     }
   }
   const MissedChat = async () => {
-    const response = await fetch("http://localhost:5000/api/messagebox/Missed_chat", {
+    const response = await fetch("https://ticketsystem-backend-6gfl.onrender.com/api/messagebox/Missed_chat", {
       method: "GET",
       headers: {
         'Content-Type': 'application/json',
