@@ -8,6 +8,7 @@ database()
 const app=express()
 const port= process.env.PORT || 5000;
 app.use(cors(({ origin: 'https://magenta-begonia-83cf73.netlify.app/', credentials: true })))
+app.options("*",cors())
 app.use(express.json({limit:"10mb",extended:true}))
 app.use(express.urlencoded({limit:"10mb",extended:true,parameterLimit:50000}))
 
