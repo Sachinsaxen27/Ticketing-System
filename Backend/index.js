@@ -9,7 +9,9 @@ const app = express()
 const port = process.env.PORT || 5000;
 const corsvalue = {
     origin: 'https://magenta-begonia-83cf73.netlify.app',
-    credentials: true
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
 }
 app.use(cors(corsvalue))
 app.options("*", cors(corsvalue))
