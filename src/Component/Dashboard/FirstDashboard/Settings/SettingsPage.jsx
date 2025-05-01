@@ -42,7 +42,7 @@ function SettingsPage() {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ name:finalname, email: credintial.email,password:credintial.password,role:credintial.role}),
-            credentials:true
+   
         });
         const json = await response.json()
         if (json.success) {

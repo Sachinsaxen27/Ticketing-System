@@ -75,7 +75,7 @@ function ChatboxPage() {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ userId: userInfo._id, adminId: userInfo.AdminId, senderid: userInfo._id, senderModel: "userlogin", text: inputMessage, sender: 'user', role: 'user', time: date }),
-                credentials:true
+
             })
             const json = await response.json()
             if (json.success) {
@@ -145,8 +145,7 @@ function ChatboxPage() {
                 'Content-Type': 'application/json'
 
             },
-            body: JSON.stringify({ name: usercredintial.name, email: usercredintial.email, phone: usercredintial.phone }),
-            credentials:true
+            body: JSON.stringify({ name: usercredintial.name, email: usercredintial.email, phone: usercredintial.phone })
         });
         const json = await response.json()
         if (json.success) {

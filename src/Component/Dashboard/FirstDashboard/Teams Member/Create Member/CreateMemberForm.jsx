@@ -15,7 +15,7 @@ function CreateMemberForm(props) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ name: credintial.name, email: credintial.email, role: designation }),
-            credentials:true
+        
         });
         const json = await response.json()
         if (json.success) {
@@ -37,8 +37,7 @@ function CreateMemberForm(props) {
                     'Content-Type': 'application/json',
                     'id': Admininfo._id
                 },
-                body: JSON.stringify({ name: credintial.name, email: credintial.email, }),
-                credentials:true
+                body: JSON.stringify({ name: credintial.name, email: credintial.email, })
             });
             const json = await response.json()
             if (json.success) {
