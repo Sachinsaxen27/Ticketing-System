@@ -65,6 +65,8 @@ function ChatboxPage() {
             UserInformation()
         }
     }, [])
+    const uri=import.meta.env.REACT_APP_API_URL
+    console.log(uri)
     const SendMessage = async (e) => {
         if (inputMessage.length > 0) {
             const response = await fetch('http://localhost:5000/api/messagebox/send_message', {
