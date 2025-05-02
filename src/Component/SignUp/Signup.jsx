@@ -41,12 +41,12 @@ function Signup() {
         <>
 
             <div className='loginStartingdiv'>
-                <div className='divheadingtag'>
-                    <Link to='/'>
+                <Link to='/'>
+                    <div className='divheadingtag'>
                         <img src={cloud} alt="cloud" />
                         <h1 style={{ margin: '0px', padding: '0px' }}>Hubly</h1>
-                    </Link>
-                </div>
+                    </div>
+                </Link>
                 <div className='formdiv'>
                     <div className='insideform'>
                         <div className='accountheading'>

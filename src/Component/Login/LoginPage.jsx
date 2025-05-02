@@ -45,11 +45,11 @@ function LoginPage() {
         <>
             <div className='loginStartingdiv'>
                 <Link to='/'>
-                    <img src={cloud} alt="cloud" />
-                    <h1 style={{ margin: '0px', padding: '0px' }}>Hubly</h1>
-                </Link > 
-                <div className='divheadingtag'>
-                </div>
+                    <div className='divheadingtag'>
+                        <img src={cloud} alt="cloud" />
+                        <h1 style={{ margin: '0px', padding: '0px' }}>Hubly</h1>
+                    </div>
+                </Link >
                 <div className='formdiv'>
                     {/* <div style={{margin:'auto'}}> */}
                     <div className='insideform'>
