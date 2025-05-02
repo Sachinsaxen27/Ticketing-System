@@ -54,7 +54,7 @@ function AnalyticPage() {
   const BaseUrl = import.meta.env.VITE_API_URL;
 
   const GetAverage = async () => {
-    const response = await fetch(BaseUrl+"/ ", {
+    const response = await fetch(BaseUrl+"/api/messagebox/Conversation_Average ", {
       method: "GET",
       headers: {
         'Content-Type': 'application/json',
