@@ -6,7 +6,7 @@ function CreateMemberForm(props) {
     console.log(memberedit)
     const context = useContext(TicketSystemAPI)
     const { Admininfo, Memberinfo } = context
-    const [credintial, setMycredintial] = useState({ name: memberedit.name || "", email: memberedit.email || "" })
+    const [credintial, setMycredintial] = useState({ name: memberedit?.name || "", email: memberedit?.email || "" })
     const [designation, setMydesignation] = useState("Member")
     const BaseUrl = import.meta.env.VITE_API_URL;
     const Updateprofile = async (e) => {
