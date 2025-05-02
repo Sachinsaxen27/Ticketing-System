@@ -10,11 +10,12 @@ import image7 from '../../../../Image/ticket.png'
 import image8 from '../../../../Image/arrow.png'
 import image9 from '../../../../Image/sendcircle.png'
 import TicketSystemAPI from '../../../../ContextAPI/TicketsystemApi'
-function ContactCenter() {
+function ContactCenter(props) {
+    const {openticket}=props
     const context = useContext(TicketSystemAPI)
     const { Admininfo, Memberinfo } = context
     const [userList, setMyuserList] = useState([])
-    const [OpenUser, setMyOpenuser] = useState()
+    const [OpenUser, setMyOpenuser] = useState(openticket||'')
     const [Memberlist, setMyMemberList] = useState([])
     const [Showpopup, setMyShowpopUp] = useState({ status: false, id: '' })
     const [messagefetch, setMyMessageFetch] = useState([])

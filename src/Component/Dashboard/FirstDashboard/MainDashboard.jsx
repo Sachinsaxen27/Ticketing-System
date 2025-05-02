@@ -34,9 +34,9 @@ function MainDashbaord() {
     const [OptionChoice, setMyOptionChoice] = useState()
     const [SearchPara, setMySearchPata] = useState('')
     const BaseUrl = import.meta.env.VITE_API_URL;
-    
+    const[openTicket,setMyTicket]=useState('')
     const GetAllChats = async () => {
-        const response = await fetch(BaseUrl+`/api/messagebox/All_conversation/${OptionChoice}`, {
+        const response = await fetch(BaseUrl + `/api/messagebox/All_conversation/${OptionChoice}`, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
@@ -52,7 +52,7 @@ function MainDashbaord() {
     }, [OptionChoice])
     const GetConversation = async (e) => {
         if (Admin._id) {
-            const response = await fetch(BaseUrl+`/api/messagebox/get_messages/${Admin._id}`, {
+            const response = await fetch(BaseUrl + `/api/messagebox/get_messages/${Admin._id}`, {
                 method: "GET",
                 headers: {
                     'Content-Type': 'application/json',
@@ -101,7 +101,7 @@ function MainDashbaord() {
         clearInterval()
     }
     const Searchbyticket = async (e) => {
-        const response = await fetch(BaseUrl+`/api/messagebox/Search_Conversation/${SearchPara}`, {
+        const response = await fetch(BaseUrl + `/api/messagebox/Search_Conversation/${SearchPara}`, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
@@ -121,6 +121,9 @@ function MainDashbaord() {
             GetConversation()
         }
     }, [SearchPara])
+    const OpenTicket=(val)=>{
+        setMyTicket(val)
+    }
     return (
         <>
             <div style={{ display: 'flex', backgroundColor: '#FFFFFF', fontFamily: "Barlow, sans-serif" }}>
@@ -172,11 +175,11 @@ function MainDashbaord() {
                     {OptionChoice === undefined && chats?.map((msg, index) => {
                         const timeString = msg.message.time
                         const [datePart, timePart] = timeString.split(', ');
-                        const [day, month, year] = datePart.split('/');
-                        const formatted = `${month}/${day}/${year} ${timePart}`;
+                        const [day, month, year] = datePart.split('/')
+                        const formatted = `${month - 1}/${day}/${year} ${timePart}`;
                         const localDate = new Date(formatted);
                         const diffHr = currenttime - localDate
-                        console.log(diffHr)
+
                         return msg.role === 'user' ? <div className='messagebox' key={index}>
                             <div>
                                 <div className='messageheader'>
@@ -215,7 +218,7 @@ function MainDashbaord() {
                                         <p>{msg.senderid.email}</p>
                                     </div>
                                 </div>
-                                <div>
+                                <div onClick={()=>{OpenTicket(msg)}}>
                                     Open Ticket
                                 </div>
                             </div>
@@ -267,14 +270,14 @@ function MainDashbaord() {
                                     </div>
 
                                 </div>
-                                <div>
+                                <div onClick={()=>OpenTicket(msg)}>
                                     Open Ticket
                                 </div>
                             </div>
                         </div>
                     })}
                 </div>}
-                {showoption === 'Contact' && <ContactCenter />}
+                {showoption === 'Contact' && <ContactCenter ticket={openTicket}/>}
                 {showoption === 'Analytics' && <AnalyticPage />}
                 {showoption === 'Chat' && <ChatBotPage />}
                 {showoption === 'Team' && <TeamsPage />}
