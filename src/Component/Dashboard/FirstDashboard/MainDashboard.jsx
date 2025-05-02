@@ -73,12 +73,7 @@ function MainDashbaord() {
         GetConversation()
     }, [Admin])
     const handlelogout = () => {
-        if (localStorage.getItem('member-token')) {
-            localStorage.removeItem('member-token')
-        } else if (localStorage.getItem('authtoken')) {
-            localStorage.removeItem('authtoken')
-
-        }
+        localStorage.clear()
         navigate('/')
     }
     const handlelogoutshow = () => {
