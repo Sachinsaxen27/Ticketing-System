@@ -84,6 +84,7 @@ function AnalyticPage() {
     GetAverage()
     toast("This chart represent the data where the ticket would not be resolved or seen within 3 hour")
   }, [])
+  console.log(chatNumber,Average_time)
   return (
     <div>
       <div className='chatbotheading'>
