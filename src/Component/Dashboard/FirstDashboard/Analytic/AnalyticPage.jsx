@@ -108,7 +108,7 @@ function AnalyticPage() {
           <p style={{ fontWeight: '500' }}>For highest customer satisfaction rates you should aim to reply to an incoming customer's message in 15 <br /> seconds or less. Quick responses will get you more conversations, help you earn customers trust and <br /> make more sales.</p>
         </div>
         <div className='Average_timer'>
-          <div>{String(Math.floor(Average_time)).padStart(2, '0')} Minute</div><div>{String(Average_time % 60).padStart(2, '0')} Second</div>
+          <div>{String(Math.floor(Average_time)).padStart(2, '0')} Minute</div><div>{String((Math.floor(Average_time*60)) % 60).padStart(2, '0')} Second</div>
         </div>
       </div>
       <div className='Average_Chat_div' style={{ marginTop: "30px" }}>
