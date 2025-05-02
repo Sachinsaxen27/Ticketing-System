@@ -2,18 +2,18 @@ import React, { useContext, useState } from 'react'
 import cloud from '../../Image/cloud.png'
 import image from '../../Image/image 1.png'
 import './LoginPage.css'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, Links, useNavigate } from 'react-router-dom'
 import TicketsystemApi from '../../ContextAPI/TicketsystemApi'
 function LoginPage() {
     const [credintial, setMycredintial] = useState({ email: "", password: "" })
-    const navigate=useNavigate()
-    const context=useContext(TicketsystemApi)
-    const{getAdmininfo,getMemberinfo}=context
+    const navigate = useNavigate()
+    const context = useContext(TicketsystemApi)
+    const { getAdmininfo, getMemberinfo } = context
     const BaseUrl = import.meta.env.VITE_API_URL;
     // localStorage.clear()
     const handlesubmit = async (e) => {
         e.preventDefault();
-        const response = await fetch(BaseUrl+'/api/adminlogin/admin_login', {
+        const response = await fetch(BaseUrl + '/api/adminlogin/admin_login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -24,12 +24,12 @@ function LoginPage() {
         const json = await response.json()
         if (json.success) {
             console.log(json)
-            if(json.role==='admin'){
+            if (json.role === 'admin') {
                 localStorage.setItem('authtoken', json.authtoken)
                 getAdmininfo()
             }
-            if(json.role==='member'){
-                localStorage.setItem('member-token',json.authtoken)
+            if (json.role === 'member') {
+                localStorage.setItem('member-token', json.authtoken)
                 getMemberinfo()
             }
             navigate('/dashboard')
@@ -44,9 +44,11 @@ function LoginPage() {
     return (
         <>
             <div className='loginStartingdiv'>
-                <div className='divheadingtag'>
+                <Link to='/'>
                     <img src={cloud} alt="cloud" />
                     <h1 style={{ margin: '0px', padding: '0px' }}>Hubly</h1>
+                </Link > 
+                <div className='divheadingtag'>
                 </div>
                 <div className='formdiv'>
                     {/* <div style={{margin:'auto'}}> */}
@@ -56,13 +58,13 @@ function LoginPage() {
                             <form>
                                 <div className='fomrinputtag'>
                                     <label htmlFor="email">Email</label>
-                                    <input type="text" name='email' id='email'value={credintial.email}onChange={handleChange} />
+                                    <input type="text" name='email' id='email' value={credintial.email} onChange={handleChange} />
                                 </div>
                                 <div className='fomrinputtag'>
                                     <label htmlFor="password">Password</label>
-                                    <input type="password" name="password" id="password" value={credintial.password} onChange={handleChange}/>
+                                    <input type="password" name="password" id="password" value={credintial.password} onChange={handleChange} />
                                 </div>
-                                <button className='loginbutton'onClick={handlesubmit}>Log In</button>
+                                <button className='loginbutton' onClick={handlesubmit}>Log In</button>
                             </form>
                         </div>
                         <div className='divforgatsignup' style={{ textDecoration: 'underline' }}>

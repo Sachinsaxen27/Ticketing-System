@@ -5,8 +5,9 @@ import { Link, useNavigate } from 'react-router-dom'
 import './Signup.css'
 import '../Login/LoginPage.css'
 import AlertPage from '../alert/AlertPage'
+
 function Signup() {
-    const navigation=useNavigate()
+    const navigation = useNavigate()
     const [credintial, setMycredintial] = useState({ firstname: "", lastname: "", password: "", email: "", confirmpassword: "", phone: '' })
     const handleChange = (e) => {
         console.log(e)
@@ -18,12 +19,12 @@ function Signup() {
         e.preventDefault()
         if (password !== confirmpassword) {
             let fullname = credintial.firstname + ' ' + credintial.lastname
-            const response = await fetch(BaseUrl+'/api/adminlogin/admin_Registration', {
+            const response = await fetch(BaseUrl + '/api/adminlogin/admin_Registration', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ name: fullname, phone: credintial.phone,email: credintial.email, password: credintial.password})
+                body: JSON.stringify({ name: fullname, phone: credintial.phone, email: credintial.email, password: credintial.password })
             });
             const json = await response.json()
             if (json.success) {
@@ -41,8 +42,10 @@ function Signup() {
 
             <div className='loginStartingdiv'>
                 <div className='divheadingtag'>
-                    <img src={cloud} alt="cloud" />
-                    <h1 style={{ margin: '0px', padding: '0px' }}>Hubly</h1>
+                    <Link to='/'>
+                        <img src={cloud} alt="cloud" />
+                        <h1 style={{ margin: '0px', padding: '0px' }}>Hubly</h1>
+                    </Link>
                 </div>
                 <div className='formdiv'>
                     <div className='insideform'>

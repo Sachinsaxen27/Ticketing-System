@@ -16,10 +16,10 @@ function App() {
         <Router>
           {/* <Navbar/> */}
           <Routes>
-            <Route exact path='/' element={<FirstPart />} />
-            <Route exact path='/login' element={<LoginPage />} />
-            <Route exact path='/signup' element={<Signup />} />
-            <Route exact path='/dashboard' element={<MainDashboard />} />
+            <Route path='/' element={<FirstPart />} />
+            <Route path='/login' element={<LoginPage />} />
+            <Route path='/signup' element={<Signup />} />
+            <Route path='/dashboard' element={<MainDashboard />} />
           </Routes>
         </Router>
       </TicketsystemState>
