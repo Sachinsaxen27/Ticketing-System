@@ -54,7 +54,7 @@ function AnalyticPage() {
   const BaseUrl = import.meta.env.VITE_API_URL;
 
   const GetAverage = async () => {
-    const response = await fetch(BaseUrl+"/api/messagebox/Conversation_Average", {
+    const response = await fetch(BaseUrl+"/ ", {
       method: "GET",
       headers: {
         'Content-Type': 'application/json',
@@ -62,9 +62,9 @@ function AnalyticPage() {
     })
     const json = await response.json()
     if (json) {
-      setMyChatNumber(json.conver)
-      setMyAveragetime(json.gap),
-      setMyResolveNumber(json.finalpercentage)
+      setMyChatNumber(json.totalConversations)
+      setMyAveragetime(json.avgGap),
+      setMyResolveNumber(json.resolvedPercentage)
     }
   }
   const MissedChat = async () => {
