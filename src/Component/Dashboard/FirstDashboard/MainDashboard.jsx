@@ -162,7 +162,7 @@ function MainDashbaord() {
                     </div>
                     <div>
                         <div className='dashboardoption'>
-                            <div className='dashboardalltickets' onClick={() => setMyOptionChoice("")}>
+                            <div className='dashboardalltickets' onClick={() => setMyOptionChoice(undefined)}>
                                 <img src={image8} alt="" />All tickets
                             </div>
                             {Admin.role !== "Member" && <div className='dashboardresolved' onClick={() => setMyOptionChoice("resolved")}>Resolved</div>}
