@@ -162,11 +162,11 @@ function MainDashbaord() {
                     </div>
                     <div>
                         <div className='dashboardoption'>
-                            <div className='dashboardalltickets'>
+                            <div className='dashboardalltickets' onClick={() => setMyOptionChoice("")}>
                                 <img src={image8} alt="" />All tickets
                             </div>
                             {Admin.role !== "Member" && <div className='dashboardresolved' onClick={() => setMyOptionChoice("resolved")}>Resolved</div>}
-                            {Admin.role !== "Member" && <div className='dashboardunresolved' onClick={() => setMyOptionChoice("unresolved")}>Unresolved</div>}
+                            {Admin.role !== "Member" && <div className='dashboardunresolved' onClick={() => setMyOptionChoice("Unresolved")}>Unresolved</div>}
                         </div>
                     </div>
                     {OptionChoice === undefined && chats?.map((msg, index) => {
