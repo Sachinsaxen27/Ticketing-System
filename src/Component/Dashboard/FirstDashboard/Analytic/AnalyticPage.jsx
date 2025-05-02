@@ -62,6 +62,7 @@ function AnalyticPage() {
     })
     const json = await response.json()
     if (json) {
+      console.log(json)
       setMyChatNumber(json.totalConversations)
       setMyAveragetime(json.avgGap),
       setMyResolveNumber(json.resolvedPercentage)
