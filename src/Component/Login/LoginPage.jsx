@@ -44,7 +44,7 @@ function LoginPage() {
     return (
         <>
             <div className='loginStartingdiv'>
-                <Link to='/'>
+                <Link to='/' style={{textDecoration:'none'}}>
                     <div className='divheadingtag'>
                         <img src={cloud} alt="cloud" />
                         <h1 style={{ margin: '0px', padding: '0px' }}>Hubly</h1>
