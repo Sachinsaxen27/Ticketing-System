@@ -34,7 +34,7 @@ function MainDashbaord() {
     const [OptionChoice, setMyOptionChoice] = useState()
     const [SearchPara, setMySearchPata] = useState('')
     const BaseUrl = import.meta.env.VITE_API_URL;
-    const[openTicket,setMyTicket]=useState('')
+    const [openTicket, setMyTicket] = useState('')
     const GetAllChats = async () => {
         const response = await fetch(BaseUrl + `/api/messagebox/All_conversation/${OptionChoice}`, {
             method: "GET",
@@ -121,8 +121,10 @@ function MainDashbaord() {
             GetConversation()
         }
     }, [SearchPara])
-    const OpenTicket=(val)=>{
+    const OpenTicket = (val) => {
         setMyTicket(val)
+        console.log(val)
+        setMyshowoption('Contact')
     }
     return (
         <>
@@ -176,10 +178,9 @@ function MainDashbaord() {
                         const timeString = msg.message.time
                         const [datePart, timePart] = timeString.split(', ');
                         const [day, month, year] = datePart.split('/')
-                        const formatted = `${month - 1}/${day}/${year} ${timePart}`;
+                        const formatted = `${month}/${day}/${year} ${timePart}`;
                         const localDate = new Date(formatted);
                         const diffHr = currenttime - localDate
-
                         return msg.role === 'user' ? <div className='messagebox' key={index}>
                             <div>
                                 <div className='messageheader'>
@@ -218,7 +219,7 @@ function MainDashbaord() {
                                         <p>{msg.senderid.email}</p>
                                     </div>
                                 </div>
-                                <div onClick={()=>{OpenTicket(msg)}}>
+                                <div onClick={() => { OpenTicket(msg) }}>
                                     Open Ticket
                                 </div>
                             </div>
@@ -270,14 +271,14 @@ function MainDashbaord() {
                                     </div>
 
                                 </div>
-                                <div onClick={()=>OpenTicket(msg)}>
+                                <div onClick={() => OpenTicket(msg)}>
                                     Open Ticket
                                 </div>
                             </div>
                         </div>
                     })}
                 </div>}
-                {showoption === 'Contact' && <ContactCenter ticket={openTicket}/>}
+                {showoption === 'Contact' && <ContactCenter ticket={openTicket} />}
                 {showoption === 'Analytics' && <AnalyticPage />}
                 {showoption === 'Chat' && <ChatBotPage />}
                 {showoption === 'Team' && <TeamsPage />}
