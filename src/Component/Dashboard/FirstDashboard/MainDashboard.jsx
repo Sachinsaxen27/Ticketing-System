@@ -176,6 +176,7 @@ function MainDashbaord() {
                         const formatted = `${month}/${day}/${year} ${timePart}`;
                         const localDate = new Date(formatted);
                         const diffHr = currenttime - localDate
+                        console.log(diffHr)
                         return msg.role === 'user' ? <div className='messagebox' key={index}>
                             <div>
                                 <div className='messageheader'>
