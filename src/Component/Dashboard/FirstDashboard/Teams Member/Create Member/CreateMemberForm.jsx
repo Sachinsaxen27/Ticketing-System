@@ -6,22 +6,28 @@ function CreateMemberForm(props) {
     console.log(memberedit)
     const context = useContext(TicketSystemAPI)
     const { Admininfo, Memberinfo } = context
-    const [credintial, setMycredintial] = useState({ name: memberedit?.name || "", email: memberedit?.email || "" })
+    const [credintial, setMycredintial] = useState({ name: "", email: "" })
     const [designation, setMydesignation] = useState("Member")
+    useEffect(() => {
+        setMycredintial({
+            name: memberedit?.name || "",
+             email: memberedit?.email || ""
+        })
+    },[memberedit])
     const BaseUrl = import.meta.env.VITE_API_URL;
     const Updateprofile = async (e) => {
-        const response = await fetch(BaseUrl+`/api/adminlogin/edit_Profile/${memberedit._id}`, {
+        const response = await fetch(BaseUrl + `/api/adminlogin/edit_Profile/${memberedit._id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ name: credintial.name, email: credintial.email, role: designation }),
-        
+
         });
         const json = await response.json()
         if (json.success) {
             console.log("Account Update Successfully", "success")
-            setMycredintial({name:'', email: ""})
+            setMycredintial({ name: '', email: "" })
             props.closeform()
         } else {
             console.log(json.message)
@@ -32,7 +38,7 @@ function CreateMemberForm(props) {
         if (memberedit) {
             Updateprofile()
         } else {
-            const response = await fetch(BaseUrl+'/api/memberlogin/add_member', {
+            const response = await fetch(BaseUrl + '/api/memberlogin/add_member', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
