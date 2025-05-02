@@ -165,7 +165,7 @@ function ContactCenter() {
                                 Chats
                             </div>
                         </div   >
-                        <div>
+                        <div style={{height:"calc(100vh - 10.6rem)",overflowY:'scroll'}}>
                             {userList ? userList.map((user, index) => {
                                 return <div className='chatlist' key={index} onClick={() => { setMyOpenuser(user) }}>
                                     <img src={image1} alt="user" className='userimage' />

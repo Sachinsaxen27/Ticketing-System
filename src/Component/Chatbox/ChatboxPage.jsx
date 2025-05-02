@@ -45,6 +45,7 @@ function ChatboxPage() {
     };
 
     const BaseUrl = import.meta.env.VITE_API_URL;
+    // localStorage.clear()
     const UserInformation = async (e) => {
 
         const response = await fetch(BaseUrl+'/api/userlogin/get_USERdata', {
@@ -57,6 +58,7 @@ function ChatboxPage() {
         const json = await response.json()
         if (json.success) {
             setMyuserInfo(json.admin)
+            console.log(json.admin)
             if (json.admin) {
                 GetConversation()
             }
@@ -152,11 +154,11 @@ function ChatboxPage() {
         const json = await response.json()
         if (json.success) {
             setMyuserInfo(json.getuser)
-            console.log(json.getuser)
             localStorage.setItem('user-token', json.getuser._id)
         }
         else {
             setMyuserInfo(json.member)
+            console.log(json.member)
             if (json.member) {
                 localStorage.setItem('user-token', json.member._id)
             }
@@ -171,7 +173,6 @@ function ChatboxPage() {
             GetConversation()
         }
     }, [userInfo])
-    console.log(userInfo)
     return (
         <>
             <div>

@@ -13,7 +13,6 @@ router.post('/send_message', async (req, res) => {
     try {
         const { senderid, senderModel, text, sender, role, userId, adminId } = req.body;
         const localdate = new Date().toLocaleString()
-        console.log(date)
         const [datePart, timePart] = localdate.split(', ');
         const [day, month, year] = datePart.split('/');
         const formatted = `${month}/${day}/${year} ${timePart}`;
@@ -49,7 +48,7 @@ router.post('/send_message', async (req, res) => {
         });
     } catch (error) {
         success = false
-        // console.log(error)
+        console.log(error)
         res.status(500).json({ success, error: "Failed to send message" });
     }
 })
