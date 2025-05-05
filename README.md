@@ -26,4 +26,8 @@ A simple and responsive ticketing system built using MERN. This app allows users
 3. Run locally for frontend npm run dev
 4. Run server locally nodemon index.js
 
+## Demo Account Credintial
+email: sachin@gmail.com
+password:Sachin23
+
  
