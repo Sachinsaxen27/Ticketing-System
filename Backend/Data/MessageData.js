@@ -182,46 +182,30 @@ router.get('/Conversation_Average', async (req, res) => {
 
 //? ROUTER 7 FOR GET ALL THE MISSED CHAT
 router.get('/Missed_chat', async (req, res) => {
-    const conversationId = await Conversation.find();
-    let missedChatsPerDay = {};
+    const conversations = await Conversation.find();
+    let missedchat = {};
 
-    for (let i = 0; i < conversationId.length; i++) {
-        const conversation = conversationId[i];
-        const adminReply = await MessageSchema.find({ conversationID: conversation._id, role: 'member' });
-        const userReply = await MessageSchema.find({ conversationID: conversation._id, role: 'user' });
+    for (const convo of conversations) {
+        const userFirstmessage = await MessageSchema.find({conversationID: convo._id,role: 'user'}).sort({ timestamp: -1 });
+        const adminfirst = await MessageSchema.find({conversationID: convo._id,role: { $in: ['admin', 'member'] }}).sort({ timestamp: 1 });
+        if (userFirstmessage.length === 0 || adminfirst.length === 0) continue;
 
-        let userDate;
-        let day, month, year;
-        if (userReply.length > 0) {
-            const [datePart] = userReply[0].message.time.split(', ');
-            [day, month, year] = datePart.split('/');
-            day = day.padStart(2, '0')
-            month = month.padStart(2, '0')
-            userDate = `${year}-${month}-${day}`;
-        }
+        const lastuser = userFirstmessage[0];
+        const firstadmin = adminfirst.find(msg => msg.timestamp > lastuser.timestamp);
 
-        let missed = false;
-        let finalAdminReply = adminReply;
+        if (!firstadmin) continue;
 
-        if (adminReply.length === 0) {
-            finalAdminReply = await MessageSchema.find({ conversationID: conversation._id, role: 'admin' });
-        }
+        const diffHours = (firstadmin.timestamp - lastuser.timestamp) / (1000 * 60 * 60);
 
-        if (userReply.length > 0 && finalAdminReply.length > 0) {
-            const userTime = new Date(`${month}/${day}/${year} ${userReply[0].message.time.split(', ')[1]}`);
-            const adminTime = new Date(`${month}/${day}/${year} ${finalAdminReply[0].message.time.split(', ')[1]}`);
-            if ((adminTime - userTime) / (1000 * 60 * 60) >= 3) {
-                missed = true;
-            }
-        }
-
-        if (missed && userDate) {
-            missedChatsPerDay[userDate] = (missedChatsPerDay[userDate] || 0) + 1;
+        if (diffHours >= 3) {
+            const userDate = lastuser.timestamp.toISOString().split('T')[0];
+            missedchat[userDate] = (missedchat[userDate] || 0) + 1;
         }
     }
 
     res.status(200).json(Object.entries(missedChatsPerDay).map(([date, count]) => ({ date, count })));
 });
+
 
 router.get('/Search_Conversation/:id', async (req, res) => {
     let success = false
