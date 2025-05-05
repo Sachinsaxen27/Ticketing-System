@@ -227,7 +227,6 @@ textarea:focus {
     margin-left: -20px;
 
 }
-
 .buttonsumbitformchatbox {
     display: flex;
     align-items: center;
@@ -242,4 +241,5 @@ textarea:focus {
     width: 10rem;
     margin-bottom: 10px;
     border: none;
+    cursor: pointer;
 }

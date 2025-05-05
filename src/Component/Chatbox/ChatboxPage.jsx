@@ -198,7 +198,7 @@ function ChatboxPage() {
                 <div className='messagearea'>
                     <div className="chat-container">
                         {(localStorage.getItem('user-token') === null) && messagearr?.map((msg, index) => (
-                            <div key={index} className={`chatbotlanding ${msg.role === 'user' ? 'user' : 'admin'}`}>
+                            <div key={index} className={`chatbotlanding ${msg.role === 'user' ? 'user' : msg.type === "Form" ? "" : 'admin'}`}>
                                 {msg.type === 'text' && <p>{msg.text}</p>}
                                 {((msg.type === 'Form' && isLoggedIn) && !localStorage.getItem('user-token')) &&
                                     <div className='tempraroychat'>
